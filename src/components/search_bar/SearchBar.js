@@ -8,7 +8,7 @@ export default class SearchBar extends Component {
 
   render() {
     return (
-      <div>
+      <div>SearchBar!!!
         <div>search input and btn</div>
         <div>previously locations</div>
       </div>

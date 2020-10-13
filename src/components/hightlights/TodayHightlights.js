@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class TodayHightlights extends Component {
   static propTypes = {
@@ -8,7 +8,7 @@ export default class TodayHightlights extends Component {
 
   render() {
     return (
-      <div>
+      <div>TodayHightlights!!!
         <div className="wind-status"></div>
         <div className="humidity"></div>
         <div className="visibility"></div>

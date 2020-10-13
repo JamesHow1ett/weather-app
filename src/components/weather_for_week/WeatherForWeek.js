@@ -8,7 +8,7 @@ export default class WeatherForWeek extends Component {
 
   render() {
     return (
-      <div>
+      <div>WeatherForWeek!!!
         <div className="next-day"></div>
         <div className="next-day"></div>
         <div className="next-day"></div>
