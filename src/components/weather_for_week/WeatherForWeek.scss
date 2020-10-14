@@ -1,0 +1,91 @@
+.week-weather {
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem 7.813rem 3.125rem 9.688rem;
+
+  .convert-tempreture-btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    &__btn {
+      background-color: #585676;
+      border-radius: 54px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 12px;
+
+      &:hover {
+        cursor: pointer;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+      span{
+        color: #E7E7EB;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 21px;
+        text-align: center;
+      }
+      &.active {
+        background-color: #E7E7EB;
+        span{
+          color: #110E3C;
+        }
+      }
+    }
+
+  }
+}
+
+.weather-next-day {
+  display: flex;
+  margin-top: 66px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1E213A;
+    height: 177px;
+    width: 120px;
+    margin-left: 1.625rem;
+    padding: 1.125rem 1.375rem;
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  &__day-name {
+    color: #E7E7EB;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 19px;
+    text-align: center;
+  }
+  &__weather-icon {
+    img{
+      height: 70px;
+      width: 70px;
+    }
+  }
+  &__temp {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 19px;
+    &_max {
+      color: #E7E7EB;
+    }
+    &_min {
+      color: #A09FB1;
+    }
+  }
+}
