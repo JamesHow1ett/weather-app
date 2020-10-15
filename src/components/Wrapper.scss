@@ -2,6 +2,8 @@
   display: grid;
   grid-template-columns: 2fr 4fr;
   grid-template-rows: repeat(4, 1fr);
+  // display: flex;
+  // justify-content: center;
 
   .component {
     min-height: 200px;
@@ -15,6 +17,7 @@
     grid-column: 2/3;
     grid-row: 1/5;
     background-color: #100E1D;
+    padding: 2.5rem 7.813rem 3.125rem 9.688rem;
   }
   .component-weather-for-week {
   }

@@ -1,12 +1,11 @@
 .week-weather {
   display: flex;
   flex-direction: column;
-  padding: 2.5rem 7.813rem 3.125rem 9.688rem;
 
   .convert-tempreture-btn-group {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
 
     &__btn {
       background-color: #585676;
@@ -45,6 +44,7 @@
 
 .weather-next-day {
   display: flex;
+  justify-content: space-between;
   margin-top: 66px;
 
   &__item {
@@ -54,8 +54,7 @@
     align-items: center;
     background-color: #1E213A;
     height: 177px;
-    width: 120px;
-    margin-left: 1.625rem;
+    width: 130px;
     padding: 1.125rem 1.375rem;
     &:first-child {
       margin-left: 0;
