@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import dataFromApi from '../lib/Api';
 
 //components
 import SearchBar from './search_bar/SearchBar';
@@ -104,24 +105,29 @@ const dataApi = {
   }
 }
 
-export default class Wrapper extends Component {
+export default function Wrapper () {
+  const [weatherData, setWeatherData] = useState({});
+
+  useEffect(() => {
+    dataFromApi('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/922137/')
+      .then(res => setWeatherData(res))
+      .catch(err => console.log(err))
+  }, [])
   
-  
-  render() {
-    return (
-      <div className="wrapper">
-        <div className="component component-today-weather">
-          <TodayWeather dataApi={dataApi} />
+
+  return (
+    <div className="wrapper">
+      <div className="component component-today-weather">
+        <TodayWeather dataApi={dataApi} />
+      </div>
+      <div className="component-wrapper">
+        <div className="component component-weather-for-week">
+          <WeatherForWeek dataApi={dataApi} />
         </div>
-        <div className="component-wrapper">
-          <div className="component component-weather-for-week">
-            <WeatherForWeek dataApi={dataApi} />
-          </div>
-          <div className="component component-today-hightlights">
-            <TodayHightlights dataApi={dataApi} />
-          </div>
+        <div className="component component-today-hightlights">
+          <TodayHightlights dataApi={dataApi} />
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
