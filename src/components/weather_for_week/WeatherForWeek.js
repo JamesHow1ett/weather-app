@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+//import PropTypes from 'prop-types';
 import dataFromApi from '../../lib/Api';
+import defaultWeatherData from '../../lib/DefaultWeatherData';
 
 //styles
 import './WeatherForWeek.scss';
+
+//initialize defaultWeatherData object
+const defaultData = defaultWeatherData();
 
 function WeatherForWeek (dataApi) {
   const [weatherData, setWeatherData] = useState({});
@@ -30,14 +34,14 @@ function WeatherForWeek (dataApi) {
           index > 0 ? (
             <div className="weather-next-day__item" key={index}>
               <div className="weather-next-day__day-name">
-                <span>{item['applicable_date']}</span>
+                <span>{index === 1 ? 'Tomorrow' : new Date(item['applicable_date']).toLocaleDateString('en-GB', defaultData['dateOptions'])}</span>
               </div>
               <div className="weather-next-day__weather-icon">
                 <img src={`/static/img/weather/png/${item['weather_state_abbr']}.png`} alt="weather icon"></img>
               </div>
               <div className="weather-next-day__temp">
-                <span className="weather-next-day__temp_max">{Number(item['max_temp']).toFixed()}&#176;С</span>
-                <span className="weather-next-day__temp_min">{Number(item['min_temp']).toFixed()}&#176;С</span>
+                <span className="weather-next-day__temp_max">{Number(item['max_temp']).toFixed(0)}&#176;С</span>
+                <span className="weather-next-day__temp_min">{Number(item['min_temp']).toFixed(0)}&#176;С</span>
               </div>
             </div>
           ) : ''
@@ -47,27 +51,13 @@ function WeatherForWeek (dataApi) {
                 <span>{new Date().toLocaleDateString('en-GB', dataApi.dateOptions)}</span>
               </div>
               <div className="weather-next-day__weather-icon">
-                <img src={`/static/img/weather/png/t.png`} alt="weather icon"></img>
+                <img src={`/static/img/weather/png/${defaultData['consolidated_weather']['weather_state_abbr']}.png`} alt="weather icon"></img>
               </div>
               <div className="weather-next-day__temp">
-                <span className="weather-next-day__temp_max">0&#176;С</span>
-                <span className="weather-next-day__temp_min">0&#176;С</span>
+                <span className="weather-next-day__temp_max">{defaultData['consolidated_weather']['max_temp']}&#176;С</span>
+                <span className="weather-next-day__temp_min">{defaultData['consolidated_weather']['min_temp']}&#176;С</span>
               </div>
             </div>}
-        {/* {dataApi.data.map((item, index) => (
-        <div className="weather-next-day__item" key={index}>
-          <div className="weather-next-day__day-name">
-            <span>{new Date().toLocaleDateString('en-GB', dataApi.dateOptions)}</span>
-          </div>
-          <div className="weather-next-day__weather-icon">
-            <img src={`/static/img/weather/png/${item['weather_state_abbr']}.png`} alt="weather icon"></img>
-          </div>
-          <div className="weather-next-day__temp">
-            <span className="weather-next-day__temp_max">{Number(item['max_temp']).toFixed()}&#176;С</span>
-            <span className="weather-next-day__temp_min">{Number(item['min_temp']).toFixed()}&#176;С</span>
-          </div>
-        </div>
-        ))} */}
       </div>
     </div>
   )
@@ -75,6 +65,6 @@ function WeatherForWeek (dataApi) {
 
 export default WeatherForWeek
 
-WeatherForWeek.propTypes = {
-  dataApi: PropTypes.object.isRequired
-}
+// WeatherForWeek.propTypes = {
+//   dataApi: PropTypes.object.isRequired
+// }
