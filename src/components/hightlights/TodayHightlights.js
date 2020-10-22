@@ -34,7 +34,14 @@ function TodayHightlights () {
               <span>{weatherData['consolidated_weather'] ? Number(weatherData['consolidated_weather'][0]['wind_speed']).toFixed(1) : defaultData['consolidated_weather']['wind_speed']}<span className="today-hightlights__info_small">&nbsp;mph</span></span>
             </div>
             <div className="today-hightlights__wind-direction">
-              <img src="" alt=""></img>
+              <div>
+                <img
+                  src={`/static/img/icons/navigation-white-18dp.svg`}
+                  alt="wind_direction_compass"
+                  className={`today-hightlights__wind-direction today-hightlights__wind-direction-img_${
+                    weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['wind_direction_compass'] : defaultData['consolidated_weather']['wind_direction_compass']
+                  }`} />
+              </div>
               <span>{weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['wind_direction_compass'] : defaultData['consolidated_weather']['wind_direction_compass']}</span>
             </div>
           </div>
