@@ -107,6 +107,7 @@ const dataApi = {
 
 export default function Wrapper () {
   const [weatherData, setWeatherData] = useState({});
+  const isSerchBar = true;
 
   useEffect(() => {
     dataFromApi('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/922137/')
@@ -118,7 +119,8 @@ export default function Wrapper () {
   return (
     <div className="wrapper">
       <div className="component component-today-weather">
-        <TodayWeather dataApi={dataApi} />
+        {isSerchBar && <SearchBar />}
+        {!isSerchBar && <TodayWeather dataApi={dataApi} />}
       </div>
       <div className="component-wrapper">
         <div className="component component-weather-for-week">

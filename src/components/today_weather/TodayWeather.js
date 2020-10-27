@@ -20,7 +20,6 @@ function TodayWeather (dataApi) {
 
   return (
     <div className="today-weather">
-      {console.log('hello world')}
       <div className="today-weather__btn-search-group">
         <div className="today-weather__btn-search"><span>Seach for places</span></div>
         <div className="today-weather__btn-location">
