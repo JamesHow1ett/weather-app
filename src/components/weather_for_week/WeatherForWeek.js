@@ -9,7 +9,7 @@ import './WeatherForWeek.scss';
 //initialize defaultWeatherData object
 const defaultData = defaultWeatherData();
 
-function WeatherForWeek (dataApi) {
+function WeatherForWeek (props) {
   const [weatherData, setWeatherData] = useState({});
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function WeatherForWeek (dataApi) {
         </div>
       </div>
       <div className="weather-next-day">
-        {weatherData['consolidated_weather'] ? weatherData['consolidated_weather'].map((item, index) => (
+        {props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'].map((item, index) => (
           index > 0 ? (
             <div className="weather-next-day__item" key={index}>
               <div className="weather-next-day__day-name">
@@ -48,7 +48,7 @@ function WeatherForWeek (dataApi) {
         )) :
             <div className="weather-next-day__item">
               <div className="weather-next-day__day-name">
-                <span>{new Date().toLocaleDateString('en-GB', dataApi.dateOptions)}</span>
+                <span>{new Date().toLocaleDateString('en-GB', props.dateOptions)}</span>
               </div>
               <div className="weather-next-day__weather-icon">
                 <img src={`/static/img/weather/png/${defaultData['consolidated_weather']['weather_state_abbr']}.png`} alt="weather icon"></img>
@@ -66,5 +66,5 @@ function WeatherForWeek (dataApi) {
 export default WeatherForWeek
 
 // WeatherForWeek.propTypes = {
-//   dataApi: PropTypes.object.isRequired
+//   props: PropTypes.object.isRequired
 // }

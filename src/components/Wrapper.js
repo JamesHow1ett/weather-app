@@ -107,27 +107,43 @@ const dataApi = {
 
 export default function Wrapper () {
   const [weatherData, setWeatherData] = useState({});
-  const isSerchBar = true;
+  const [locationResults, setLocationResults] = useState([]);
+  const [locationNum, setLocationNum] = useState(922137);
+  const [locationStr, setLocationStr] = useState('');
+  let isSerchBar = true;
 
   useEffect(() => {
-    dataFromApi('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/922137/')
+    dataFromApi(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationNum}/`)
       .then(res => setWeatherData(res))
       .catch(err => console.log(err))
-  }, [])
+  }, [locationNum])
+
+  async function getLocationResults (inputValue) {
+    return dataFromApi(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${inputValue}`)
+            .then(res => setLocationResults(res))
+            .catch(err => console.log(err));
+  }
+
+  function handleSearchBar (inputValue = 'lozova') {
+    console.log(inputValue);
+    let trimStr = inputValue.replace(/"|'/, '').toLowerCase();
+    return (setLocationStr(trimStr), getLocationResults(trimStr));
+  }
   
 
   return (
     <div className="wrapper">
+      {console.log(locationResults)}
       <div className="component component-today-weather">
-        {isSerchBar && <SearchBar />}
-        {!isSerchBar && <TodayWeather dataApi={dataApi} />}
+        {isSerchBar && <SearchBar locationResults={locationResults} handleSearchBar={handleSearchBar}/>}
+        {!isSerchBar && <TodayWeather weatherData={weatherData} handleSearchBar={handleSearchBar}/>}
       </div>
       <div className="component-wrapper">
         <div className="component component-weather-for-week">
-          <WeatherForWeek dataApi={dataApi} />
+          <WeatherForWeek weatherData={weatherData} />
         </div>
         <div className="component component-today-hightlights">
-          <TodayHightlights dataApi={dataApi} />
+          <TodayHightlights weatherData={weatherData} />
         </div>
       </div>
     </div>

@@ -9,14 +9,9 @@ import './TodayWeather.scss';
 //initialize defaultWeatherData object
 const defaultData = defaultWeatherData();
 
-function TodayWeather (dataApi) {
-  const [weatherData, setWeatherData] = useState({});
+function TodayWeather (props) {
 
-  useEffect(() => {
-    dataFromApi(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${'922137'}/`)
-      .then(res => setWeatherData(res))
-      .catch(err => console.log(err))
-  }, [])
+  
 
   return (
     <div className="today-weather">
@@ -28,11 +23,11 @@ function TodayWeather (dataApi) {
       </div>
       <div className="today-weather__current-weather">
         <div className="today-weather__weather-icon">
-          <img src={`/static/img/weather/png/${weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['weather_state_abbr'] : defaultData['consolidated_weather']['weather_state_abbr']}.png`} alt="weather-icon"></img>
+          <img src={`/static/img/weather/png/${props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['weather_state_abbr'] : defaultData['consolidated_weather']['weather_state_abbr']}.png`} alt="weather-icon"></img>
         </div>
         <div className="today-weather__weather-detail">
-          <div className="today-weather__weather-temp">{Number(weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['the_temp'] : defaultData['consolidated_weather']['the_temp']).toFixed(0)}<span>&#176;С</span></div>
-          <div className="today-weather__weather-name">{weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['weather_state_name'] : defaultData['consolidated_weather']['weather_state_name']}</div>
+          <div className="today-weather__weather-temp">{Number(props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['the_temp'] : defaultData['consolidated_weather']['the_temp']).toFixed(0)}<span>&#176;С</span></div>
+          <div className="today-weather__weather-name">{props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['weather_state_name'] : defaultData['consolidated_weather']['weather_state_name']}</div>
         </div>
         <div className="today-weather__weather-location">
           <div className="today-weather__date-group">
@@ -43,7 +38,7 @@ function TodayWeather (dataApi) {
             <div className="today-weather__city-icon">
               <img src="/static/img/icons/baseline_place_white_18dp.png" alt="city-icon"></img>
             </div>
-            <div className="today-weather__city-name">{weatherData ? weatherData['title'] : defaultData['title']}</div>
+            <div className="today-weather__city-name">{props.weatherData ? props.weatherData['title'] : defaultData['title']}</div>
           </div>
         </div>
       </div>    

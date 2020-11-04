@@ -9,7 +9,7 @@ import './TodayHightlights.scss';
 //initialize defaultWeatherData object
 const defaultData = defaultWeatherData();
 
-function TodayHightlights () {
+function TodayHightlights (props) {
   const [weatherData, setWeatherData] = useState({});
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function TodayHightlights () {
               <span>Wind status</span>
             </div>
             <div className="today-hightlights__info">
-              <span>{weatherData['consolidated_weather'] ? Number(weatherData['consolidated_weather'][0]['wind_speed']).toFixed(1) : defaultData['consolidated_weather']['wind_speed']}<span className="today-hightlights__info_small">&nbsp;mph</span></span>
+              <span>{props.weatherData['consolidated_weather'] ? Number(props.weatherData['consolidated_weather'][0]['wind_speed']).toFixed(1) : defaultData['consolidated_weather']['wind_speed']}<span className="today-hightlights__info_small">&nbsp;mph</span></span>
             </div>
             <div className="today-hightlights__wind-direction">
               <div>
@@ -39,10 +39,10 @@ function TodayHightlights () {
                   src={`/static/img/icons/navigation-white-18dp.svg`}
                   alt="wind_direction_compass"
                   className={`today-hightlights__wind-direction today-hightlights__wind-direction-img_${
-                    weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['wind_direction_compass'] : defaultData['consolidated_weather']['wind_direction_compass']
+                    props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['wind_direction_compass'] : defaultData['consolidated_weather']['wind_direction_compass']
                   }`} />
               </div>
-              <span>{weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['wind_direction_compass'] : defaultData['consolidated_weather']['wind_direction_compass']}</span>
+              <span>{props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['wind_direction_compass'] : defaultData['consolidated_weather']['wind_direction_compass']}</span>
             </div>
           </div>
         </div>
@@ -52,10 +52,10 @@ function TodayHightlights () {
               <span>Humidity</span>
             </div>
             <div className="today-hightlights__info">
-              <span>{weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['humidity'] : defaultData['consolidated_weather']['humidity']}%</span>
+              <span>{props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['humidity'] : defaultData['consolidated_weather']['humidity']}%</span>
             </div>
             <div className="today-hightlights__progress-bar">
-              <progress className="progress-bar" max="100" value={weatherData['consolidated_weather'] ? weatherData['consolidated_weather'][0]['humidity'] : defaultData['consolidated_weather']['humidity']}></progress>
+              <progress className="progress-bar" max="100" value={props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['humidity'] : defaultData['consolidated_weather']['humidity']}></progress>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ function TodayHightlights () {
               <span>Visibility</span>
             </div>
             <div className="today-hightlights__info">
-              <span>{weatherData['consolidated_weather'] ? Number(weatherData['consolidated_weather'][0]['visibility']).toFixed(1) : defaultData['consolidated_weather']['visibility']}<span className="today-hightlights__info_small">&nbsp;miles</span></span>
+              <span>{props.weatherData['consolidated_weather'] ? Number(props.weatherData['consolidated_weather'][0]['visibility']).toFixed(1) : defaultData['consolidated_weather']['visibility']}<span className="today-hightlights__info_small">&nbsp;miles</span></span>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@ function TodayHightlights () {
               <span>Air Pressure</span>
             </div>
             <div className="today-hightlights__info">
-              <span>{weatherData['consolidated_weather'] ? Number(weatherData['consolidated_weather'][0]['air_pressure']).toFixed(0) : defaultData['consolidated_weather']['air_pressure']}<span className="today-hightlights__info_small">&nbsp;mb</span></span>
+              <span>{props.weatherData['consolidated_weather'] ? Number(props.weatherData['consolidated_weather'][0]['air_pressure']).toFixed(0) : defaultData['consolidated_weather']['air_pressure']}<span className="today-hightlights__info_small">&nbsp;mb</span></span>
             </div>
           </div>
         </div>
