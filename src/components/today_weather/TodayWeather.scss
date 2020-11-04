@@ -1,26 +1,54 @@
 .today-weather {
   color: #A09FB1;
   background-color: #1E213A;
-  //height: 90%;
   padding: 2.75rem 2.75rem 2rem;
 
   &__btn-search-group {
     display: flex;
     justify-content: space-between;
     max-height: 40px;
+    position: relative;
 
     .today-weather__btn-search {
+      position: relative;
       background-color: #6E707A;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       padding: 10px 18px;
-      &:hover {
-        cursor: pointer;
+      height: 40px;
+      width: 160px;
+      cursor: pointer;
+      &::before {
+        content: '';
+        height: 95%;
+        width: 20px;
+        background-color: green;
+        color: #E7E7EB;
+        top: 0;
+        left: 0;
+        position: absolute;
+        z-index: -1;
+        border: 1px solid transparent;
+        border-radius: 1px;
+      }
+      &:hover::before { 
+        z-index: 9;
+        animation-duration: 1s;
+        animation-name: hover-animation;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease;
       }
       span {
         color: #E7E7EB;
         line-height: 19px;
         font-size: 1rem;
         font-weight: 500;
+        z-index: 999;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -25%);
+        height: 100%;
+        width: 100%;
       }
     }
     .today-weather__btn-location {
@@ -141,5 +169,17 @@
         }
       }
     }
+  }
+}
+
+@keyframes hover-animation {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 90%;
+  }
+  100% {
+    left: -2%;
   }
 }

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types';
-import dataFromApi from '../../lib/Api';
 import defaultWeatherData from '../../lib/DefaultWeatherData';
 
 //styles
@@ -11,12 +10,10 @@ const defaultData = defaultWeatherData();
 
 function TodayWeather (props) {
 
-  
-
   return (
     <div className="today-weather">
       <div className="today-weather__btn-search-group">
-        <div className="today-weather__btn-search"><span>Seach for places</span></div>
+        <div className="today-weather__btn-search" onClick={(() => props.handleIsSearchBar())}><span>Seach for places</span></div>
         <div className="today-weather__btn-location">
           <img src="/static/img/icons/baseline_gps_fixed_white_18dp.png" alt="gps logo"></img>
         </div>

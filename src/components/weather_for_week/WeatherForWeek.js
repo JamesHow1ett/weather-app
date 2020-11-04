@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types';
-import dataFromApi from '../../lib/Api';
 import defaultWeatherData from '../../lib/DefaultWeatherData';
 
 //styles
@@ -10,14 +9,6 @@ import './WeatherForWeek.scss';
 const defaultData = defaultWeatherData();
 
 function WeatherForWeek (props) {
-  const [weatherData, setWeatherData] = useState({});
-
-  useEffect(() => {
-    dataFromApi('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/922137/')
-      .then(res => setWeatherData(res))
-      .catch(err => console.log(err))
-  }, [])
-
 
   return (
     <div className="week-weather">

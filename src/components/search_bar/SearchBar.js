@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 
 //styles
@@ -9,11 +9,10 @@ function SearchBar (props) {
 
   const handleChange = (event) => setInputValue(event.target.value);
 
-
   return (
     <div className="search-bar">
       <div className="search-bar__btn-close-group">
-        <div className="search-bar__btn-close">
+        <div className="search-bar__btn-close" onClick={(() => props.handleIsSearchBar())}>
           <img src="/static/img/icons/baseline_clear_white_18dp.png" alt="btn-close"></img>
         </div>
       </div>
@@ -23,7 +22,9 @@ function SearchBar (props) {
       </div>
       <div className="search-bar__search-results">
         {props.locationResults ? props.locationResults.map((item, index) => (
-          <div className="search-bar__cities" key={index}><span>{item.title}</span></div>
+          <div className="search-bar__cities" key={index} onClick={(() => {
+            return (props.handleLocationId(item['woeid']), props.handleIsSearchBar());
+          })}><span>{item.title}</span></div>
         )) :
           <div className="search-bar__cities"><span>loading...</span></div>}
       </div>

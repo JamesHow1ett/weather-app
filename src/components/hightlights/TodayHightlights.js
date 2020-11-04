@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types';
-import dataFromApi from '../../lib/Api';
+//import dataFromApi from '../../lib/Api';
 import defaultWeatherData from '../../lib/DefaultWeatherData';
 
 //styles
@@ -10,19 +10,11 @@ import './TodayHightlights.scss';
 const defaultData = defaultWeatherData();
 
 function TodayHightlights (props) {
-  const [weatherData, setWeatherData] = useState({});
-
-  useEffect(() => {
-    dataFromApi('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/922137/')
-      .then(res => setWeatherData(res))
-      .catch(err => console.log(err))
-  }, [])
-
 
   return (
     <div className="today-hightlights">
       <div className="today-hightlights__header">
-        <span>Today's Hightlights</span>
+      <span>{props.weatherData ? props.weatherData['title'] : ''}'s Today's Hightlights</span>
       </div>
       <div className="today-hightlights__wrapper">
         <div className="today-hightlights__box">
