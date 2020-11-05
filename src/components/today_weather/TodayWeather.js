@@ -1,6 +1,7 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
 import defaultWeatherData from '../../lib/DefaultWeatherData';
+import toFahrenheit from '../../lib/toFahrenheit';
 
 //styles
 import './TodayWeather.scss';
@@ -23,7 +24,16 @@ function TodayWeather (props) {
           <img src={`/static/img/weather/png/${props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['weather_state_abbr'] : defaultData['consolidated_weather']['weather_state_abbr']}.png`} alt="weather-icon"></img>
         </div>
         <div className="today-weather__weather-detail">
-          <div className="today-weather__weather-temp">{Number(props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['the_temp'] : defaultData['consolidated_weather']['the_temp']).toFixed(0)}<span>&#176;С</span></div>
+          {!!props.isCelsium ?
+          <div className="today-weather__weather-temp">
+            {Number(props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['the_temp'] : defaultData['consolidated_weather']['the_temp']).toFixed(0)}
+            <span>&#176;С</span>
+          </div> :
+          <div className="today-weather__weather-temp">
+          {toFahrenheit(Number(props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['the_temp'] : defaultData['consolidated_weather']['the_temp'])).toFixed(0)}
+          <span>&#176;F</span>
+        </div>
+          }
           <div className="today-weather__weather-name">{props.weatherData['consolidated_weather'] ? props.weatherData['consolidated_weather'][0]['weather_state_name'] : defaultData['consolidated_weather']['weather_state_name']}</div>
         </div>
         <div className="today-weather__weather-location">

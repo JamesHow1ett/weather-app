@@ -14,7 +14,7 @@ function TodayHightlights (props) {
   return (
     <div className="today-hightlights">
       <div className="today-hightlights__header">
-      <span>{props.weatherData ? props.weatherData['title'] : ''}'s Today's Hightlights</span>
+      <span>Today's Hightlights for {props.weatherData ? props.weatherData['title'] : ''}</span>
       </div>
       <div className="today-hightlights__wrapper">
         <div className="today-hightlights__box">

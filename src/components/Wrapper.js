@@ -17,6 +17,7 @@ export default function Wrapper () {
   const [locationResults, setLocationResults] = useState([]);
   const [locationNum, setLocationNum] = useState(922137);
   const [isSearchBar, setIsSearchBar] = useState(false);
+  const [isCelsium, setIsCelsium] = useState(true);
 
   useEffect(() => {
     dataFromApi(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationNum}/`)
@@ -41,7 +42,11 @@ export default function Wrapper () {
   }
 
   function handleIsSearchBar () {
-    return setIsSearchBar(!isSearchBar)
+    return setIsSearchBar(!isSearchBar);
+  }
+
+  function handleIsCelsium () {
+    return setIsCelsium(!isCelsium);
   }
   
 
@@ -53,15 +58,22 @@ export default function Wrapper () {
                           locationResults={locationResults}
                           handleSearchBar={handleSearchBar}
                           handleLocationId={handleLocationId}
-                          handleIsSearchBar={handleIsSearchBar}/>}
+                          handleIsSearchBar={handleIsSearchBar}
+                        />}
         {!isSearchBar && <TodayWeather
                             weatherData={weatherData}
                             handleSearchBar={handleSearchBar}
-                            handleIsSearchBar={handleIsSearchBar}/>}
+                            handleIsSearchBar={handleIsSearchBar}
+                            isCelsium={isCelsium}
+                          />}
       </div>
       <div className="component-wrapper">
         <div className="component component-weather-for-week">
-          <WeatherForWeek weatherData={weatherData} />
+          <WeatherForWeek
+            weatherData={weatherData}
+            handleIsCelsium={handleIsCelsium}
+            isCelsium={isCelsium}
+          />
         </div>
         <div className="component component-today-hightlights">
           <TodayHightlights weatherData={weatherData} />

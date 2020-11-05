@@ -1,6 +1,7 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
 import defaultWeatherData from '../../lib/DefaultWeatherData';
+import toFahrenheit from '../../lib/toFahrenheit';
 
 //styles
 import './WeatherForWeek.scss';
@@ -13,10 +14,14 @@ function WeatherForWeek (props) {
   return (
     <div className="week-weather">
       <div className="convert-tempreture-btn-group">
-        <div className="convert-tempreture-btn-group__btn convert-tempreture-btn-group__btn active">
+        <div
+          className={`convert-tempreture-btn-group__btn ${!!props.isCelsium ? 'active' : ''}`}
+          onClick={(() => props.handleIsCelsium())}>
           <span>&#176;С</span>
         </div>
-        <div className="convert-tempreture-btn-group__btn">
+        <div
+          className={`convert-tempreture-btn-group__btn ${!!props.isCelsium ? '' : 'active'}`}
+          onClick={(() => props.handleIsCelsium())}>
           <span>&#176;F</span>
         </div>
       </div>
@@ -31,8 +36,15 @@ function WeatherForWeek (props) {
                 <img src={`/static/img/weather/png/${item['weather_state_abbr']}.png`} alt="weather icon"></img>
               </div>
               <div className="weather-next-day__temp">
-                <span className="weather-next-day__temp_max">{Number(item['max_temp']).toFixed(0)}&#176;С</span>
-                <span className="weather-next-day__temp_min">{Number(item['min_temp']).toFixed(0)}&#176;С</span>
+                {!!props.isCelsium ?
+                <>
+                  <span className="weather-next-day__temp_max">{Number(item['max_temp']).toFixed(0)}&#176;С</span>
+                  <span className="weather-next-day__temp_min">{Number(item['min_temp']).toFixed(0)}&#176;С</span>
+                </> :
+                <>
+                  <span className="weather-next-day__temp_max">{toFahrenheit(Number(item['max_temp'])).toFixed(0)}&#176;F</span>
+                  <span className="weather-next-day__temp_min">{toFahrenheit(Number(item['min_temp'])).toFixed(0)}&#176;F</span>
+                </>}
               </div>
             </div>
           ) : ''
