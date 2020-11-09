@@ -1,6 +1,6 @@
 
-async function dataFromApi (url = '', data = {}) {
-  const response = await fetch(url);
+async function dataFromApi (url, baseUrl = 'https://cors-anywhere.herokuapp.com/https://www.metaweather.com') {
+  const response = await fetch(baseUrl + url);
   return response.json();
 }
 

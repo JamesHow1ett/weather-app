@@ -15,7 +15,7 @@ function TodayWeather (props) {
     <div className="today-weather">
       <div className="today-weather__btn-search-group">
         <div className="today-weather__btn-search" onClick={(() => props.handleIsSearchBar())}><span>Seach for places</span></div>
-        <div className="today-weather__btn-location">
+        <div className="today-weather__btn-location" onClick={(() => props.handleGetLocation())}>
           <img src="/static/img/icons/baseline_gps_fixed_white_18dp.png" alt="gps logo"></img>
         </div>
       </div>

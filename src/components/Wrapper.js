@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 //import PropTypes from 'prop-types';
 import dataFromApi from '../lib/Api';
 
@@ -12,73 +12,129 @@ import WeatherForWeek from './weather_for_week/WeatherForWeek';
 import './Wrapper.scss';
 
 
-export default function Wrapper () {
-  const [weatherData, setWeatherData] = useState({});
-  const [locationResults, setLocationResults] = useState([]);
-  const [locationNum, setLocationNum] = useState(922137);
-  const [isSearchBar, setIsSearchBar] = useState(false);
-  const [isCelsium, setIsCelsium] = useState(true);
+class Wrapper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.getGeolocation = this.getGeolocation.bind(this);
+    this.getSearchResultsInput = this.getSearchResultsInput.bind(this);
+    this.getGeolocationData = this.getGeolocationData.bind(this);
+    this.handleGetLocation = this.handleGetLocation.bind(this);
+    this.handleSearchBar = this.handleSearchBar.bind(this);
+    this.handleLocationId = this.handleLocationId.bind(this);
+    this.handleIsSearchBar = this.handleIsSearchBar.bind(this);
+    this.handleIsCelsium = this.handleIsCelsium.bind(this);
+    this.state = {
+      weatherData: {},
+      locationResults: [],
+      locationNum: 44418,
+      isSearchBar: false,
+      isCelsium: true,
+    }
+  }
 
-  useEffect(() => {
-    dataFromApi(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationNum}/`)
-      .then(res => setWeatherData(res))
+  componentDidMount() {
+    dataFromApi(`/api/location/${this.state.locationNum}/`)
+      .then(res => this.setState({weatherData: res}))
       .catch(err => console.log(err))
-  }, [locationNum])
-
-  async function getSearchResults (inputValue) {
-    return dataFromApi(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${inputValue}`)
-            .then(res => setLocationResults(res))
-            .catch(err => console.log(err));
   }
 
-  function handleSearchBar (inputValue = 'lozova') {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.locationNum !== prevState.locationNum) {
+      dataFromApi(`/api/location/${this.state.locationNum}`)
+        .then(res => this.setState({weatherData: res}))
+        .catch(err => Error(err))
+    }
+  }
+
+  async getSearchResultsInput (inputValue) {
+    return dataFromApi(`/api/location/search/?query=${inputValue}`)
+            .then(res => this.setState({locationResults: res}))
+            .catch(err => Error(err))
+            .finally()
+  }
+
+  async getGeolocationData ({latitude, longitude}) {
+    return dataFromApi(`/api/location/search/?lattlong=${latitude},${longitude}`)
+            .then(res => this.setState({locationNum: res[0]['woeid']}))
+            .catch(err => Error(err))
+            .finally()
+  }
+
+  getGeolocation (callback) {
+    function success (position) {
+      const longitude = position.coords.longitude || 1;
+      const latitude = position.coords.latitude || 1;
+      const coordsObj = {
+        latitude: +latitude.toFixed(3),
+        longitude: +longitude.toFixed(3),
+      }
+      return callback(coordsObj);
+    }
+    if (!navigator.geolocation) {
+
+    } else {
+      navigator.geolocation.getCurrentPosition(success);
+    }
+  }
+
+  handleGetLocation () {
+    return this.getGeolocation(this.getGeolocationData);
+  }
+
+  handleSearchBar (inputValue = 'lozova') {
     let trimStr = inputValue.replace(/"|'/, '').toLowerCase();
-    return getSearchResults(trimStr);
+    return this.getSearchResultsInput(trimStr);
   }
 
-  function handleLocationId (locationId = '01') {
+  handleLocationId (locationId = '01') {
     let convertToNum = +locationId;
-    return setLocationNum(convertToNum);
+    return this.setState({locationNum: convertToNum});
   }
 
-  function handleIsSearchBar () {
-    return setIsSearchBar(!isSearchBar);
+  handleIsSearchBar () {
+    return this.setState({isSearchBar: !this.state.isSearchBar});
   }
 
-  function handleIsCelsium () {
-    return setIsCelsium(!isCelsium);
+  handleIsCelsium () {
+    return this.setState({isCelsium: !this.state.isCelsium});
   }
   
-
-  return (
-    <div className="wrapper">
-      {console.log(locationResults)}
-      <div className="component component-today-weather">
-        {isSearchBar && <SearchBar
-                          locationResults={locationResults}
-                          handleSearchBar={handleSearchBar}
-                          handleLocationId={handleLocationId}
-                          handleIsSearchBar={handleIsSearchBar}
-                        />}
-        {!isSearchBar && <TodayWeather
-                            weatherData={weatherData}
-                            handleSearchBar={handleSearchBar}
-                            handleIsSearchBar={handleIsSearchBar}
-                            isCelsium={isCelsium}
+  render () {
+    return (
+      <div className="wrapper">
+        <div className="component component-today-weather">
+          {this.state.isSearchBar && <SearchBar
+                            locationResults={this.state.locationResults}
+                            handleSearchBar={this.handleSearchBar}
+                            handleLocationId={this.handleLocationId}
+                            handleIsSearchBar={this.handleIsSearchBar}
                           />}
-      </div>
-      <div className="component-wrapper">
-        <div className="component component-weather-for-week">
-          <WeatherForWeek
-            weatherData={weatherData}
-            handleIsCelsium={handleIsCelsium}
-            isCelsium={isCelsium}
-          />
+          {!this.state.isSearchBar && <TodayWeather
+                              weatherData={this.state.weatherData}
+                              handleSearchBar={this.handleSearchBar}
+                              handleIsSearchBar={this.handleIsSearchBar}
+                              handleGetLocation={this.handleGetLocation}
+                              isCelsium={this.state.isCelsium}
+                            />}
         </div>
-        <div className="component component-today-hightlights">
-          <TodayHightlights weatherData={weatherData} />
+        <div className="component-wrapper">
+          <div className="component component-weather-for-week">
+            <WeatherForWeek
+              weatherData={this.state.weatherData}
+              handleIsCelsium={this.handleIsCelsium}
+              isCelsium={this.state.isCelsium}
+            />
+          </div>
+          <div className="component component-today-hightlights">
+            <TodayHightlights 
+              weatherData={this.state.weatherData}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
+  
 }
+
+export default Wrapper;

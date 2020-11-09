@@ -2,6 +2,7 @@
   color: #A09FB1;
   background-color: #1E213A;
   padding: 2.75rem 2.75rem 2rem;
+  height: 100%;
 
   &__btn-search-group {
     display: flex;
@@ -78,7 +79,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 6.25rem;
+    margin-top: 1.25rem;
 
     .today-weather__weather-icon {
       padding: 20px 130px;
@@ -106,7 +107,7 @@
         line-height: 42px;
         font-size: 2.25rem;
         font-weight: 600;
-        margin-top: 85px;
+        margin-top: 1.5rem;
       }
     }
 
