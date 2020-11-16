@@ -1,7 +1,7 @@
 import React from 'react';
 //import PropTypes from 'prop-types';
 import defaultWeatherData from '../../lib/DefaultWeatherData';
-import { toKilometrs } from '../../lib/toKilometrs';
+import { toKilometrs } from '../../lib/convertr';
 //styles
 import './TodayHightlights.scss';
 

@@ -43,28 +43,50 @@
       border: 0;
       &:hover {
         cursor: pointer;
+        animation-duration: 3s;
+        animation-name: gradientAnimation;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease;
+        animation-direction: alternate;
       }
     }
   }
 
   &__search-results {
     display: flex;
-    align-items: flex-start;
     flex-direction: column;
-    justify-content: space-between;
     margin-top: 60px;
   }
   &__cities {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     height: 65px;
     width: 100%;
     padding: 23px 15px;
     margin-bottom: 15px;
+
+    .chevron-right {
+      display: none;
+    }
     &:hover {
       cursor: pointer;
       border: 1px solid silver;
+      .chevron-right {
+        display: inline-block;
+      }
     }
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background: #3C47E9;
+  }
+  50% {
+    background:rgb(33, 180, 57);
+  }
+  100% {
+    background: #3C47E9;
   }
 }
