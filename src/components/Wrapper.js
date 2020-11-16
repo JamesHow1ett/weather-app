@@ -128,6 +128,7 @@ class Wrapper extends React.Component {
           <div className="component component-today-hightlights">
             <TodayHightlights 
               weatherData={this.state.weatherData}
+              isCelsium={this.state.isCelsium}
             />
           </div>
         </div>
