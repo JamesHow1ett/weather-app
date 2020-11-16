@@ -13,7 +13,7 @@ function SearchBar (props) {
     <div className="search-bar">
       <div className="search-bar__btn-close-group">
         <div className="search-bar__btn-close" onClick={(() => props.handleIsSearchBar())}>
-          <img src="/static/img/icons/baseline_clear_white_18dp.png" alt="btn-close"></img>
+          <img src="/static/img/icons/baseline_clear_white_18dp.png" alt="btn-close" />
         </div>
       </div>
       <div className="search-bar__search-input-group">
