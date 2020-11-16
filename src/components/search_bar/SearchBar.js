@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 
 //styles
-import './SearchBar.scss';
+import './SearchBar.scss'
 
 function SearchBar (props) {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState('')
 
-  const handleChange = (event) => setInputValue(event.target.value);
+  const handleChange = (event) => setInputValue(event.target.value)
 
   return (
     <div className="search-bar">
@@ -34,7 +34,7 @@ function SearchBar (props) {
             key={index}
             onClick={(() => 
             {
-              return (props.handleLocationId(item['woeid']), props.handleIsSearchBar());
+              return (props.handleLocationId(item['woeid']), props.handleIsSearchBar())
             })
           }>
             <span>{item.title}</span>

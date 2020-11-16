@@ -1,17 +1,17 @@
-import React from 'react';
-//import PropTypes from 'prop-types';
-import defaultWeatherData from '../../lib/DefaultWeatherData';
-import { toFahrenheit } from '../../lib/convertr';
+import React from 'react'
+//import PropTypes from 'prop-types'
+import defaultWeatherData from '../../lib/DefaultWeatherData'
+import { toFahrenheit } from '../../lib/convertr'
 
 //styles
-import './WeatherForWeek.scss';
+import './WeatherForWeek.scss'
 
 //initialize defaultWeatherData object
-const defaultData = defaultWeatherData();
+const defaultData = defaultWeatherData()
 
 function WeatherForWeek (props) {
-  const celsius = props.isCelsium;
-  const webData = props.weatherData;
+  const celsius = props.isCelsium
+  const webData = props.weatherData
 
   return (
     <div className="week-weather">

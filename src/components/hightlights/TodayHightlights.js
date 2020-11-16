@@ -1,20 +1,20 @@
-import React from 'react';
-//import PropTypes from 'prop-types';
-import defaultWeatherData from '../../lib/DefaultWeatherData';
-import { toKilometrs } from '../../lib/convertr';
+import React from 'react'
+//import PropTypes from 'prop-types'
+import defaultWeatherData from '../../lib/DefaultWeatherData'
+import { toKilometrs } from '../../lib/convertr'
 //styles
-import './TodayHightlights.scss';
+import './TodayHightlights.scss'
 
 //initialize defaultWeatherData object
-const defaultData = defaultWeatherData();
+const defaultData = defaultWeatherData()
 
 function TodayHightlights (props) {
-  const webData = props.weatherData;
+  const webData = props.weatherData
 
   return (
     <div className="today-hightlights">
       <div className="today-hightlights__header">
-      <span>Today's Hightlights for {webData ? webData['title'] : ''}</span>
+      <span>Today's Hightlights for { webData ? webData['title'] : '' }</span>
       </div>
       <div className="today-hightlights__wrapper">
         <div className="today-hightlights__box">
@@ -53,7 +53,8 @@ function TodayHightlights (props) {
                     defaultData['consolidated_weather']['wind_direction_compass']
                   }`} />
               </div>
-              <span>{
+              <span>
+              {
                 webData['consolidated_weather'] ?
                 webData['consolidated_weather'][0]['wind_direction_compass'] :
                 defaultData['consolidated_weather']['wind_direction_compass']
@@ -68,7 +69,8 @@ function TodayHightlights (props) {
               <span>Humidity</span>
             </div>
             <div className="today-hightlights__info">
-              <span>{
+              <span>
+              {
                 webData['consolidated_weather'] ?
                 webData['consolidated_weather'][0]['humidity'] :
                 defaultData['consolidated_weather']['humidity']

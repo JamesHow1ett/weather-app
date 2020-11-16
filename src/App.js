@@ -1,14 +1,14 @@
-import React from 'react';
-import dataFromApi from './lib/Api';
+import React from 'react'
+import dataFromApi from './lib/Api'
 
-import './App.css';
+import './App.css'
 
 //components
-import Wrapper from './components/Wrapper';
+import Wrapper from './components/Wrapper'
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       coords: {},
       firstWeatherData: {},
@@ -34,7 +34,7 @@ class App extends React.Component {
         .catch(err => Error(err))
     }
     if (!!this.state.woeid[0]) {
-      console.log('ok');
+      console.log('ok')
     }
   }
 
@@ -47,4 +47,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default App
