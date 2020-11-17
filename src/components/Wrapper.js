@@ -50,14 +50,12 @@ class Wrapper extends React.Component {
     return dataFromApi(`/api/location/search/?query=${inputValue}`)
             .then(res => this.setState({locationResults: res}))
             .catch(err => Error(err))
-            .finally()
   }
 
   async getGeolocationData ({latitude, longitude}) {
     return dataFromApi(`/api/location/search/?lattlong=${latitude},${longitude}`)
             .then(res => this.setState({locationNum: res[0]['woeid']}))
             .catch(err => Error(err))
-            .finally()
   }
 
   getGeolocation (callback) {
@@ -70,9 +68,7 @@ class Wrapper extends React.Component {
       }
       return callback(coordsObj)
     }
-    if (!navigator.geolocation) {
-
-    } else {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success)
     }
   }

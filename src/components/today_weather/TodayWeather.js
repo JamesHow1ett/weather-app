@@ -25,14 +25,9 @@ function TodayWeather (props) {
       <div className="today-weather__current-weather">
         <div className="today-weather__weather-icon">
           <img
-            src={
-            `/static/img/weather/png/
-            ${
-              webData['consolidated_weather'] ?
+            src={`/static/img/weather/png/${webData['consolidated_weather'] ?
               webData['consolidated_weather'][0]['weather_state_abbr'] :
-              defaultData['consolidated_weather']['weather_state_abbr']
-            }.png`
-          }
+              defaultData['consolidated_weather']['weather_state_abbr']}.png`}
             alt="weather-icon"
             />
         </div>
@@ -43,7 +38,7 @@ function TodayWeather (props) {
             {
               Number(webData['consolidated_weather'] ?
               webData['consolidated_weather'][0]['the_temp'] :
-              defaultData['consolidated_weather']['the_temp'].toFixed(0))
+              defaultData['consolidated_weather']['the_temp']).toFixed(0)
             }
             <span>&#176;С</span>
           </div> :
@@ -52,7 +47,7 @@ function TodayWeather (props) {
           {
             toFahrenheit(Number(webData['consolidated_weather'] ?
             webData['consolidated_weather'][0]['the_temp'] :
-            defaultData['consolidated_weather']['the_temp'].toFixed(0)))
+            defaultData['consolidated_weather']['the_temp']))
           }
           <span>&#176;F</span>
         </div>

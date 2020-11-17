@@ -52,8 +52,8 @@ function WeatherForWeek (props) {
                     <span className="weather-next-day__temp_min">{Number(item['min_temp'].toFixed(0))}&#176;С</span>
                   </> :
                   <>
-                    <span className="weather-next-day__temp_max">{toFahrenheit(Number(item['max_temp'].toFixed(0)))}&#176;F</span>
-                    <span className="weather-next-day__temp_min">{toFahrenheit(Number(item['min_temp'].toFixed(0)))}&#176;F</span>
+                    <span className="weather-next-day__temp_max">{toFahrenheit(Number(item['max_temp']))}&#176;F</span>
+                    <span className="weather-next-day__temp_min">{toFahrenheit(Number(item['min_temp']))}&#176;F</span>
                   </>}
                 </div>
               </div>
