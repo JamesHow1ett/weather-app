@@ -1,16 +1,14 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
-import defaultWeatherData from '../../lib/DefaultWeatherData'
-import { toFahrenheit } from '../../lib/convertr'
+import PropTypes from 'prop-types'
+import Convertr from '../../lib/convertr'
 
 //styles
 import './TodayWeather.scss'
 
-//initialize defaultWeatherData object
-const defaultData = defaultWeatherData()
 
 function TodayWeather (props) {
   const webData = props.weatherData
+  const defaultData = props.defaultData
 
   return (
     <div className="today-weather">
@@ -45,7 +43,7 @@ function TodayWeather (props) {
           <div
             className="today-weather__weather-temp">
           {
-            toFahrenheit(Number(webData['consolidated_weather'] ?
+            new Convertr().toFahrenheitFromCelsius(Number(webData['consolidated_weather'] ?
             webData['consolidated_weather'][0]['the_temp'] :
             defaultData['consolidated_weather']['the_temp']))
           }
@@ -83,6 +81,7 @@ function TodayWeather (props) {
 
 export default TodayWeather
 
-// TodayWeather.propTypes = {
-//   dataApi: PropTypes.string.isRequired
-// }
+TodayWeather.propTypes = {
+  weatherData: PropTypes.object,
+  defaultData: PropTypes.object.isRequired
+}

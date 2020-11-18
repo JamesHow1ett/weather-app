@@ -1,15 +1,15 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
-import defaultWeatherData from '../../lib/DefaultWeatherData'
-import { toKilometrs } from '../../lib/convertr'
+import PropTypes from 'prop-types'
+import Convertr from '../../lib/convertr'
+
 //styles
 import './TodayHightlights.scss'
+import Convert from '../../lib/convertr'
 
-//initialize defaultWeatherData object
-const defaultData = defaultWeatherData()
 
 function TodayHightlights (props) {
   const webData = props.weatherData
+  const defaultData = props.defaultData
 
   return (
     <div className="today-hightlights">
@@ -27,15 +27,15 @@ function TodayHightlights (props) {
               <span>
               {
                 webData['consolidated_weather'] ?
-                toKilometrs(Number(webData['consolidated_weather'][0]['wind_speed'].toFixed(1))) :
-                toKilometrs(defaultData['consolidated_weather']['wind_speed'])
+                new Convert().toKilometrsFromMiles(Number(webData['consolidated_weather'][0]['wind_speed'])) :
+                new Convert().toKilometrsFromMiles(defaultData['consolidated_weather']['wind_speed'])
               }
                 <span className="today-hightlights__info_small">&nbsp;kph</span>
               </span> :
               <span>
               {
                 webData['consolidated_weather'] ?
-                Number(webData['consolidated_weather'][0]['wind_speed'].toFixed(1)) :
+                Number(webData['consolidated_weather'][0]['wind_speed']).toFixed(1) :
                 defaultData['consolidated_weather']['wind_speed']
               }
                 <span className="today-hightlights__info_small">&nbsp;mph</span>
@@ -101,15 +101,15 @@ function TodayHightlights (props) {
               <span>
               {
                 webData['consolidated_weather'] ?
-                toKilometrs(Number(webData['consolidated_weather'][0]['visibility'].toFixed(1))) :
-                toKilometrs(defaultData['consolidated_weather']['visibility'])
+                new Convertr().toKilometrsFromMiles(Number(webData['consolidated_weather'][0]['visibility'])) :
+                new Convertr().toKilometrsFromMiles(defaultData['consolidated_weather']['visibility'])
               }
                 <span className="today-hightlights__info_small">&nbsp;km</span>
               </span> :
               <span>
               {
                 webData['consolidated_weather'] ?
-                Number(webData['consolidated_weather'][0]['visibility'].toFixed(1)) :
+                Number(webData['consolidated_weather'][0]['visibility']).toFixed(1) :
                 defaultData['consolidated_weather']['visibility']
               }
                 <span className="today-hightlights__info_small">&nbsp;miles</span>
@@ -127,7 +127,7 @@ function TodayHightlights (props) {
               <span>
               {
                 webData['consolidated_weather'] ?
-                Number(webData['consolidated_weather'][0]['air_pressure'].toFixed(0)) :
+                Number(webData['consolidated_weather'][0]['air_pressure']).toFixed(0) :
                 defaultData['consolidated_weather']['air_pressure']
               }
                 <span className="today-hightlights__info_small">&nbsp;mb</span>
@@ -144,6 +144,7 @@ function TodayHightlights (props) {
 
 export default TodayHightlights
 
-// TodayHightlights.propTypes = {
-//   dataApi: PropTypes.object
-// }
+TodayHightlights.propTypes = {
+  webData: PropTypes.object,
+  defaultData: PropTypes.object.isRequired
+}

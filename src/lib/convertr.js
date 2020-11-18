@@ -1,15 +1,20 @@
-//my convertr scales file
-function toMiles (kilometrs) {
-  return kilometrs < 0 ? 0 : Number((kilometrs * 0.6214).toFixed(1));
+//my convertr scales class, will extend in future
+class Convert {
+  constructor(value) {
+    this.value = value
+  }
+
+  toMilesFromKilometrs (value) {
+    return value < 0 ? 0 : Number((value * 0.6214).toFixed(1))
+  }
+
+  toKilometrsFromMiles (value) {
+    return value < 0 ? 0 : Number((value * 1.6).toFixed(1))
+  }
+
+  toFahrenheitFromCelsius (value) {
+    return Number(((value * 9 / 5) + 32).toFixed(0))
+  }
 }
 
-function toKilometrs (miles) {
-  return miles < 0 ? 0 : Number((miles * 1.6).toFixed(1));
-}
-
-function toFahrenheit (celsius) {
-  return Number(((celsius * 9 / 5) + 32).toFixed(0));
-}
-
-
-export { toMiles, toKilometrs, toFahrenheit }
+export default Convert

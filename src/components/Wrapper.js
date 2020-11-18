@@ -1,6 +1,7 @@
 import React from 'react'
 //import PropTypes from 'prop-types'
 import dataFromApi from '../lib/Api'
+import defaultWeatherData from '../lib/DefaultWeatherData'
 
 //components
 import SearchBar from './search_bar/SearchBar'
@@ -10,6 +11,9 @@ import WeatherForWeek from './weather_for_week/WeatherForWeek'
 
 //styles
 import './Wrapper.scss'
+
+//initialize defaultWeatherData object
+const defaultData = defaultWeatherData()
 
 
 class Wrapper extends React.Component {
@@ -112,6 +116,7 @@ class Wrapper extends React.Component {
             !this.state.isSearchBar &&
             <TodayWeather
               weatherData={this.state.weatherData}
+              defaultData={defaultData}
               handleSearchBar={this.handleSearchBar}
               handleIsSearchBar={this.handleIsSearchBar}
               handleGetLocation={this.handleGetLocation}
@@ -123,6 +128,7 @@ class Wrapper extends React.Component {
           <div className="component component-weather-for-week">
             <WeatherForWeek
               weatherData={this.state.weatherData}
+              defaultData={defaultData}
               handleIsCelsium={this.handleIsCelsium}
               isCelsium={this.state.isCelsium}
             />
@@ -130,6 +136,7 @@ class Wrapper extends React.Component {
           <div className="component component-today-hightlights">
             <TodayHightlights
               weatherData={this.state.weatherData}
+              defaultData={defaultData}
               isCelsium={this.state.isCelsium}
             />
           </div>

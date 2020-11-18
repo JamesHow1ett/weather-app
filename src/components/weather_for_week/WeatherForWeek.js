@@ -1,17 +1,15 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
-import defaultWeatherData from '../../lib/DefaultWeatherData'
-import { toFahrenheit } from '../../lib/convertr'
+import PropTypes from 'prop-types'
+import Convert from '../../lib/convertr'
 
 //styles
 import './WeatherForWeek.scss'
 
-//initialize defaultWeatherData object
-const defaultData = defaultWeatherData()
 
 function WeatherForWeek (props) {
   const celsius = props.isCelsium
   const webData = props.weatherData
+  const defaultData = props.defaultData
 
   return (
     <div className="week-weather">
@@ -52,8 +50,8 @@ function WeatherForWeek (props) {
                     <span className="weather-next-day__temp_min">{Number(item['min_temp'].toFixed(0))}&#176;С</span>
                   </> :
                   <>
-                    <span className="weather-next-day__temp_max">{toFahrenheit(Number(item['max_temp']))}&#176;F</span>
-                    <span className="weather-next-day__temp_min">{toFahrenheit(Number(item['min_temp']))}&#176;F</span>
+                    <span className="weather-next-day__temp_max">{new Convert().toFahrenheitFromCelsius(Number(item['max_temp']))}&#176;F</span>
+                    <span className="weather-next-day__temp_min">{new Convert().toFahrenheitFromCelsius(Number(item['min_temp']))}&#176;F</span>
                   </>}
                 </div>
               </div>
@@ -79,6 +77,8 @@ function WeatherForWeek (props) {
 
 export default WeatherForWeek
 
-// WeatherForWeek.propTypes = {
-//   props: PropTypes.object.isRequired
-// }
+WeatherForWeek.propTypes = {
+  isCelsium: PropTypes.bool,
+  weatherData: PropTypes.object,
+  defaultData: PropTypes.object.isRequired
+}
