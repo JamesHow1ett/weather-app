@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convert from '../../lib/convertr'
+import Convert from '../../lib/Convertr'
 
 //styles
 import './WeatherForWeek.scss'

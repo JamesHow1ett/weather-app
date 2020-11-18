@@ -2,12 +2,14 @@ import React from 'react'
 //import PropTypes from 'prop-types'
 import dataFromApi from '../lib/Api'
 import defaultWeatherData from '../lib/DefaultWeatherData'
+import { trackPromise } from 'react-promise-tracker'
 
 //components
 import SearchBar from './search_bar/SearchBar'
 import TodayHightlights from './hightlights/TodayHightlights'
 import TodayWeather from './today_weather/TodayWeather'
 import WeatherForWeek from './weather_for_week/WeatherForWeek'
+import LoadingComponent from './LoadingComponent'
 
 //styles
 import './Wrapper.scss'
@@ -37,29 +39,31 @@ class Wrapper extends React.Component {
   }
 
   componentDidMount() {
-    dataFromApi(`/api/location/${this.state.locationNum}/`)
+    trackPromise(dataFromApi(`/api/location/${this.state.locationNum}/`)
       .then(res => this.setState({weatherData: res}))
-      .catch(err => console.log(err))
+      .catch(err => console.log(err)))
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.locationNum !== prevState.locationNum) {
-      dataFromApi(`/api/location/${this.state.locationNum}`)
+      trackPromise(dataFromApi(`/api/location/${this.state.locationNum}`)
         .then(res => this.setState({weatherData: res}))
-        .catch(err => Error(err))
+        .catch(err => Error(err)))
     }
   }
 
   async getSearchResultsInput (inputValue) {
-    return dataFromApi(`/api/location/search/?query=${inputValue}`)
+    return trackPromise(dataFromApi(`/api/location/search/?query=${inputValue}`)
             .then(res => this.setState({locationResults: res}))
-            .catch(err => Error(err))
+            .catch(err => Error(err)))
   }
 
   async getGeolocationData ({latitude, longitude}) {
-    return dataFromApi(`/api/location/search/?lattlong=${latitude},${longitude}`)
-            .then(res => this.setState({locationNum: res[0]['woeid']}))
-            .catch(err => Error(err))
+    return trackPromise(dataFromApi(`/api/location/search/?lattlong=${latitude},${longitude}`)
+            .then(res => {
+              return (this.setState({locationNum: res[0]['woeid']}), localStorage.setItem(res[0]['title'], res[0]['woeid']))
+            })
+            .catch(err => Error(err)))
   }
 
   getGeolocation (callback) {
@@ -125,6 +129,7 @@ class Wrapper extends React.Component {
           }
         </div>
         <div className="component-wrapper">
+          <LoadingComponent />
           <div className="component component-weather-for-week">
             <WeatherForWeek
               weatherData={this.state.weatherData}

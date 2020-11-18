@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convertr from '../../lib/convertr'
+import Convertr from '../../lib/Convertr'
 
 //styles
 import './TodayHightlights.scss'
-import Convert from '../../lib/convertr'
+import Convert from '../../lib/Convertr'
 
 
 function TodayHightlights (props) {
