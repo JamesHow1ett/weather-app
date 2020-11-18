@@ -2,7 +2,7 @@ import React from 'react'
 import { usePromiseTracker } from 'react-promise-tracker'
 import Loader from 'react-loader-spinner'
 
-const LoadingComponent = (props) => {
+function LoadingComponent (props) {
   const { promiseInProgress } = usePromiseTracker();
 
   return (

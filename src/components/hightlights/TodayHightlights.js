@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convertr from '../../lib/Convertr'
+
+//components
+import WindStatus from './WindStatus'
+import Humidity from './Humidity'
+import Visibility from './Visibility'
+import AirPressure from './AirPressure'
 
 //styles
 import './TodayHightlights.scss'
-import Convert from '../../lib/Convertr'
 
 
 function TodayHightlights (props) {
   const webData = props.weatherData
   const defaultData = props.defaultData
+  const isCelsium = props.isCelsium
+  const consolidatedWeather = webData['consolidated_weather'] || defaultData['consolidated_weather']
 
   return (
     <div className="today-hightlights">
@@ -18,125 +24,39 @@ function TodayHightlights (props) {
       </div>
       <div className="today-hightlights__wrapper">
         <div className="today-hightlights__box">
-          <div className="today-hightlights__item">
-            <div className="today-hightlights__label">
-              <span>Wind status</span>
-            </div>
-            <div className="today-hightlights__info">
-            {!!props.isCelsium ?
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                new Convert().toKilometrsFromMiles(Number(webData['consolidated_weather'][0]['wind_speed'])) :
-                new Convert().toKilometrsFromMiles(defaultData['consolidated_weather']['wind_speed'])
-              }
-                <span className="today-hightlights__info_small">&nbsp;kph</span>
-              </span> :
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                Number(webData['consolidated_weather'][0]['wind_speed']).toFixed(1) :
-                defaultData['consolidated_weather']['wind_speed']
-              }
-                <span className="today-hightlights__info_small">&nbsp;mph</span>
-              </span>
-            }
-            </div>
-            <div className="today-hightlights__wind-direction">
-              <div>
-                <img
-                  src={`/static/img/icons/navigation-white-18dp.svg`}
-                  alt="wind_direction_compass"
-                  className={`today-hightlights__wind-direction today-hightlights__wind-direction-img_${
-                    webData['consolidated_weather'] ?
-                    webData['consolidated_weather'][0]['wind_direction_compass'] :
-                    defaultData['consolidated_weather']['wind_direction_compass']
-                  }`} />
-              </div>
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                webData['consolidated_weather'][0]['wind_direction_compass'] :
-                defaultData['consolidated_weather']['wind_direction_compass']
-              }
-              </span>
-            </div>
-          </div>
+          <WindStatus
+            isCelsium={isCelsium}
+            windSpeed={Number(consolidatedWeather[0]['wind_speed'])}
+            windDirectionCompass={consolidatedWeather[0]['wind_direction_compass']}
+          />
         </div>
         <div className="today-hightlights__box">
-          <div className="today-hightlights__item">
-            <div className="today-hightlights__label">
-              <span>Humidity</span>
-            </div>
-            <div className="today-hightlights__info">
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                webData['consolidated_weather'][0]['humidity'] :
-                defaultData['consolidated_weather']['humidity']
-              }
-              %</span>
-            </div>
-            <div className="today-hightlights__progress-bar">
-              <progress
-                className="progress-bar"
-                max="100"
-                value={
-                  webData['consolidated_weather'] ?
-                  webData['consolidated_weather'][0]['humidity'] :
-                  defaultData['consolidated_weather']['humidity']
-                }
-              >
-              </progress>
-            </div>
-          </div>
+          <Humidity
+            humidity={consolidatedWeather[0]['humidity']}
+          />
         </div>
         <div className="today-hightlights__box today-hightlights__box_small">
-          <div className="today-hightlights__item">
-            <div className="today-hightlights__label">
-              <span>Visibility</span>
-            </div>
-            <div className="today-hightlights__info">
-            {!!props.isCelsium ?
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                new Convertr().toKilometrsFromMiles(Number(webData['consolidated_weather'][0]['visibility'])) :
-                new Convertr().toKilometrsFromMiles(defaultData['consolidated_weather']['visibility'])
-              }
-                <span className="today-hightlights__info_small">&nbsp;km</span>
-              </span> :
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                Number(webData['consolidated_weather'][0]['visibility']).toFixed(1) :
-                defaultData['consolidated_weather']['visibility']
-              }
-                <span className="today-hightlights__info_small">&nbsp;miles</span>
-              </span>
-            }
-            </div>
-          </div>
+          <Visibility
+            visibility={Number(consolidatedWeather[0]['visibility'])}
+            isCelsium={isCelsium}  
+          />
         </div>
         <div className="today-hightlights__box today-hightlights__box_small">
-          <div className="today-hightlights__item">
-            <div className="today-hightlights__label">
-              <span>Air Pressure</span>
-            </div>
-            <div className="today-hightlights__info">
-              <span>
-              {
-                webData['consolidated_weather'] ?
-                Number(webData['consolidated_weather'][0]['air_pressure']).toFixed(0) :
-                defaultData['consolidated_weather']['air_pressure']
-              }
-                <span className="today-hightlights__info_small">&nbsp;mb</span>
-              </span>
-            </div>
-          </div>
+          <AirPressure 
+            airPressure={consolidatedWeather[0]['air_pressure']}
+          />
         </div>
       </div>
-      <div className="today-hightlights__dev-sign"></div>
+      <div className="today-hightlights__dev-sign">
+        <span>Oleksandr Skorokhod @
+          <a
+            href="https://devchallenges.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >&nbsp;DevChallenges.io
+          </a>
+        </span>
+      </div>
     </div>
   )
 

@@ -154,6 +154,27 @@
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25)
     }
   }
+
+  &__dev-sign {
+    margin-top: 90px;
+    a {
+      text-decoration: none;
+    }
+    span {
+      color: #616475;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 17px;
+      a {
+        color: #616475;
+        transition: color 0.3s ease;
+        &:hover {
+          text-decoration: underline;
+          color: #E7E7EB;
+        }
+      }
+    }
+  }
 }
 
 
