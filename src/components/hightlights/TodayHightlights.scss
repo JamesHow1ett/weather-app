@@ -156,7 +156,6 @@
       background-size: 35px 20px, 100% 100%, 100% 100%;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25)
     }
-
     .today-hightlights__progress-bar-percentage {
       &_zero {
         &::before {
@@ -218,9 +217,9 @@
       }
     }
   }
-
   &__dev-sign {
     margin-top: 90px;
+
     a {
       text-decoration: none;
     }
@@ -229,9 +228,11 @@
       font-size: 14px;
       font-weight: 600;
       line-height: 17px;
+
       a {
         color: #616475;
         transition: color 0.3s ease;
+        
         &:hover {
           text-decoration: underline;
           color: #E7E7EB;
@@ -240,6 +241,3 @@
     }
   }
 }
-
-
-//color #616375

@@ -4,7 +4,6 @@
   width: 100%;
   padding: 20px 45px;
   color: #E7E7EB;
-
   &__btn-close-group {
     display: flex;
     align-items: center;
@@ -14,6 +13,9 @@
       width: 20px;
       &:hover {
         cursor: pointer;
+        img {
+          animation: icon-spin infinite 2s linear;
+        }
       }
       img {
         height: 100%;
@@ -21,19 +23,22 @@
       }
     }
   }
-
   &__search-input-group {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 45px;
-    input {
+    input[type=text] {
       height: 50px;
       width: 75%;
       border: 1px solid #E7E7EB;
       background-color: #1E213A;
+      background-image: url('/static/img/icons/search-white-18dp.svg');
+      background-repeat: no-repeat;
+      background-position: 15px;
       color: #E7E7EB;
-      padding: 15px 30px;
+      padding: 15px 40px;
+      position: relative;
     }
     button {
       height: 50px;
@@ -44,14 +49,13 @@
       &:hover {
         cursor: pointer;
         animation-duration: 3s;
-        animation-name: gradientAnimation;
+        animation-name: gradient-animation;
         animation-iteration-count: infinite;
         animation-timing-function: ease;
         animation-direction: alternate;
       }
     }
   }
-
   &__search-results {
     display: flex;
     flex-direction: column;
@@ -65,7 +69,6 @@
     width: 100%;
     padding: 23px 15px;
     margin-bottom: 15px;
-
     .chevron-right {
       display: none;
     }
@@ -79,7 +82,7 @@
   }
 }
 
-@keyframes gradientAnimation {
+@keyframes gradient-animation {
   0% {
     background: #3C47E9;
   }

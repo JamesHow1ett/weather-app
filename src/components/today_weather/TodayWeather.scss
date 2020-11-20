@@ -3,13 +3,11 @@
   background-color: #1E213A;
   padding: 2.75rem 2.75rem 2rem;
   height: 100%;
-
   &__btn-search-group {
     display: flex;
     justify-content: space-between;
     max-height: 40px;
     position: relative;
-
     .today-weather__btn-search {
       position: relative;
       background-color: #6E707A;
@@ -57,15 +55,15 @@
       align-items: center;
       justify-content: center;
       background-color: #6E707A;
-      // background-position: center;
-      // background-repeat: no-repeat;
-      // background-size: contain;
       border-radius: 30px;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       padding: 0 3px;
       width: 40px;
       &:hover {
         cursor: pointer;
+        img {
+          animation: icon-spin infinite 2s linear;
+        }
       }
       img {
         height: 22px;
@@ -80,7 +78,6 @@
     justify-content: center;
     align-items: center;
     margin-top: 1.25rem;
-
     .today-weather__weather-icon {
       padding: 20px 130px;
       img {
@@ -88,11 +85,9 @@
         width: 200px;
       }
     }
-
     .today-weather__weather-detail {
       display: flex;
       flex-direction: column;
-
       .today-weather__weather-temp {
         color: #E7E7EB;
         line-height: 169px;
@@ -110,18 +105,15 @@
         margin-top: 1.5rem;
       }
     }
-
     .today-weather__weather-location {
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       margin-top: 85px;
-
       .today-weather__date-group {
         display: flex;
         justify-content: space-between;
-
         .today-weather__today {
           color: #88869D;
           line-height: 21px;
@@ -149,13 +141,11 @@
           font-weight: 500;
         }
       }
-
       .today-weather__city {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 22px;
-
         .today-weather__city-icon {
           img {
             height: 20px;
@@ -182,5 +172,14 @@
   }
   100% {
     left: -2%;
+  }
+}
+
+@keyframes icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }

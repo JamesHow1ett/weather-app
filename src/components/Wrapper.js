@@ -13,7 +13,7 @@ import LoadingComponent from './LoadingComponent'
 //styles
 import './Wrapper.scss'
 
-//initialize defaultWeatherData object
+//initialize default weather data object
 const defaultData = defaultWeatherData()
 
 

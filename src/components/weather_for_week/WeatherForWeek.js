@@ -10,7 +10,6 @@ function WeatherForWeek (props) {
   const celsius = props.isCelsium
   const webData = props.weatherData
   const defaultData = props.defaultData
-  const consolidatedWeather = webData['consolidated_weather'] || defaultData['consolidated_weather']
 
   return (
     <div className="week-weather">
@@ -61,7 +60,7 @@ function WeatherForWeek (props) {
           )) :
           <div className="weather-next-day__item">
             <div className="weather-next-day__day-name">
-              <span>{ new Date().toLocaleDateString('en-GB', props.dateOptions) }</span>
+              <span>{ new Date().toLocaleDateString('en-GB', defaultData['dateOptions']) }</span>
             </div>
             <div className="weather-next-day__weather-icon">
               <img src={`/static/img/weather/png/${defaultData['consolidated_weather'][0]['weather_state_abbr']}.png`} alt="weather icon" />

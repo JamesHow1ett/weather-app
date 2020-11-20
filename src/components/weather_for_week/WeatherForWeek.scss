@@ -1,12 +1,10 @@
 .week-weather {
   display: flex;
   flex-direction: column;
-
   .convert-tempreture-btn-group {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-
     &__btn {
       background-color: #585676;
       border-radius: 54px;
@@ -17,7 +15,6 @@
       align-items: center;
       justify-content: center;
       margin-left: 12px;
-
       &:hover {
         cursor: pointer;
       }
@@ -38,7 +35,6 @@
         }
       }
     }
-
   }
 }
 
@@ -46,7 +42,6 @@
   display: flex;
   justify-content: space-between;
   margin-top: 1.5rem;
-
   &__item {
     display: flex;
     flex-direction: column;
@@ -62,7 +57,7 @@
   }
   &__day-name {
     color: #E7E7EB;
-    font-size: 1rem;
+    font-size: .9rem;
     font-weight: 500;
     line-height: 19px;
     text-align: center;
