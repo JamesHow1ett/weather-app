@@ -16,7 +16,7 @@ function WindStatus(props) {
       {isCelsium ?
         <span>
         {
-          new Convertr().toKilometrsFromMiles(windSpeed)
+          new Convertr(windSpeed).toKilometrsFromMiles().toFixed(1)
         }
           <span className="today-hightlights__info_small">&nbsp;kph</span>
         </span> :

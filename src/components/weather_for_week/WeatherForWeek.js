@@ -10,17 +10,18 @@ function WeatherForWeek (props) {
   const celsius = props.isCelsium
   const webData = props.weatherData
   const defaultData = props.defaultData
+  const consolidatedWeather = webData['consolidated_weather'] || defaultData['consolidated_weather']
 
   return (
     <div className="week-weather">
       <div className="convert-tempreture-btn-group">
         <div
-          className={`convert-tempreture-btn-group__btn ${!!celsius ? 'active' : ''}`}
+          className={`convert-tempreture-btn-group__btn ${celsius ? 'active' : ''}`}
           onClick={(() => props.handleIsCelsium())}>
           <span>&#176;С</span>
         </div>
         <div
-          className={`convert-tempreture-btn-group__btn ${!!celsius ? '' : 'active'}`}
+          className={`convert-tempreture-btn-group__btn ${celsius ? '' : 'active'}`}
           onClick={(() => props.handleIsCelsium())}>
           <span>&#176;F</span>
         </div>
@@ -44,15 +45,16 @@ function WeatherForWeek (props) {
                   <img src={`/static/img/weather/png/${item['weather_state_abbr']}.png`} alt="weather icon"></img>
                 </div>
                 <div className="weather-next-day__temp">
-                  {!!celsius ?
+                  {celsius ?
                   <>
                     <span className="weather-next-day__temp_max">{Number(item['max_temp'].toFixed(0))}&#176;С</span>
                     <span className="weather-next-day__temp_min">{Number(item['min_temp'].toFixed(0))}&#176;С</span>
                   </> :
                   <>
-                    <span className="weather-next-day__temp_max">{new Convert().toFahrenheitFromCelsius(Number(item['max_temp']))}&#176;F</span>
-                    <span className="weather-next-day__temp_min">{new Convert().toFahrenheitFromCelsius(Number(item['min_temp']))}&#176;F</span>
-                  </>}
+                    <span className="weather-next-day__temp_max">{new Convert(Number(item['max_temp'])).toFahrenheitFromCelsius()}&#176;F</span>
+                    <span className="weather-next-day__temp_min">{new Convert(Number(item['min_temp'])).toFahrenheitFromCelsius()}&#176;F</span>
+                  </>
+                  }
                 </div>
               </div>
             ) : ''
@@ -62,11 +64,11 @@ function WeatherForWeek (props) {
               <span>{ new Date().toLocaleDateString('en-GB', props.dateOptions) }</span>
             </div>
             <div className="weather-next-day__weather-icon">
-              <img src={`/static/img/weather/png/${defaultData['consolidated_weather']['weather_state_abbr']}.png`} alt="weather icon" />
+              <img src={`/static/img/weather/png/${defaultData['consolidated_weather'][0]['weather_state_abbr']}.png`} alt="weather icon" />
             </div>
             <div className="weather-next-day__temp">
-              <span className="weather-next-day__temp_max">{defaultData['consolidated_weather']['max_temp']}&#176;С</span>
-              <span className="weather-next-day__temp_min">{defaultData['consolidated_weather']['min_temp']}&#176;С</span>
+              <span className="weather-next-day__temp_max">{defaultData['consolidated_weather'][0]['max_temp']}&#176;С</span>
+              <span className="weather-next-day__temp_min">{defaultData['consolidated_weather'][0]['min_temp']}&#176;С</span>
             </div>
           </div>
         }

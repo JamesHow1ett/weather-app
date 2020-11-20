@@ -129,11 +129,14 @@
   }
 
   &__progress-bar {
+    position: relative;
+
     progress[value] {
       appearance: none;
       height: 8px;
       width: 185px;
       margin-top: 22px;
+      border-radius: 10px;
     }
     progress[value]::-webkit-progress-bar {
       background-color: #E7E7EB;
@@ -152,6 +155,67 @@
       border-radius: 2px;
       background-size: 35px 20px, 100% 100%, 100% 100%;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25)
+    }
+
+    .today-hightlights__progress-bar-percentage {
+      &_zero {
+        &::before {
+          position: absolute;
+          content: '0';
+          top: 0;
+          left: 0;
+          height: 14px;
+          width: 8px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translateY(35%);
+        }
+      }
+      &_half {
+        &::before {
+          position: absolute;
+          content: '50';
+          top: 0;
+          left: 0;
+          height: 14px;
+          width: 15px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translate(550%, 35%);
+        }
+      }
+      &_full {
+        &::before {
+          position: absolute;
+          content: '100';
+          top: 0;
+          right: 0;
+          height: 14px;
+          width: 21px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translateY(35%);
+        }
+        &::after {
+          position: absolute;
+          content: '%';
+          top: 0;
+          right: 0;
+          height: 14px;
+          width: 10px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translateY(235%);
+        }
+      }
     }
   }
 

@@ -1,5 +1,4 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
 import dataFromApi from '../lib/Api'
 import defaultWeatherData from '../lib/DefaultWeatherData'
 import { trackPromise } from 'react-promise-tracker'
@@ -39,9 +38,7 @@ class Wrapper extends React.Component {
   }
 
   componentDidMount() {
-    trackPromise(dataFromApi(`/api/location/${this.state.locationNum}/`)
-      .then(res => this.setState({weatherData: res}))
-      .catch(err => console.log(err)))
+    this.getGeolocation(this.getGeolocationData)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -107,26 +104,26 @@ class Wrapper extends React.Component {
     return (
       <div className="wrapper">
         <div className="component component-today-weather">
-          {
-            this.state.isSearchBar &&
-              <SearchBar
-                locationResults={this.state.locationResults}
-                handleSearchBar={this.handleSearchBar}
-                handleLocationId={this.handleLocationId}
-                handleIsSearchBar={this.handleIsSearchBar}
-              />
-          }
-          {
-            !this.state.isSearchBar &&
-            <TodayWeather
-              weatherData={this.state.weatherData}
-              defaultData={defaultData}
+        {
+          this.state.isSearchBar &&
+            <SearchBar
+              locationResults={this.state.locationResults}
               handleSearchBar={this.handleSearchBar}
+              handleLocationId={this.handleLocationId}
               handleIsSearchBar={this.handleIsSearchBar}
-              handleGetLocation={this.handleGetLocation}
-              isCelsium={this.state.isCelsium}
             />
-          }
+        }
+        {
+          !this.state.isSearchBar &&
+          <TodayWeather
+            weatherData={this.state.weatherData}
+            defaultData={defaultData}
+            handleSearchBar={this.handleSearchBar}
+            handleIsSearchBar={this.handleIsSearchBar}
+            handleGetLocation={this.handleGetLocation}
+            isCelsium={this.state.isCelsium}
+          />
+        }
         </div>
         <div className="component-wrapper">
           <LoadingComponent />

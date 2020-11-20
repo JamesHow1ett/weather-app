@@ -12,10 +12,10 @@ function Visibility(props) {
         <span>Visibility</span>
       </div>
       <div className="today-hightlights__info">
-      {!!isCelsium ?
+      {isCelsium ?
         <span>
         {
-          new Convertr().toKilometrsFromMiles(visibility)
+          new Convertr(visibility).toKilometrsFromMiles().toFixed(1)
         }
           <span className="today-hightlights__info_small">&nbsp;km</span>
         </span> :
