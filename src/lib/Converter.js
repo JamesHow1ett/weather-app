@@ -1,5 +1,5 @@
-//my convertr scales class, will extend in future
-class Convert {
+//my Converter scales class, will extend in future
+class Converter {
   constructor(value) {
     this.value = value
   }
@@ -17,4 +17,4 @@ class Convert {
   }
 }
 
-export default Convert
+export default Converter

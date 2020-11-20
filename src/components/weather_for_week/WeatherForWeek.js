@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convert from '../../lib/Convertr'
+import Converter from '../../lib/Converter'
 
 //styles
 import './WeatherForWeek.scss'
@@ -50,8 +50,8 @@ function WeatherForWeek (props) {
                     <span className="weather-next-day__temp_min">{Number(item['min_temp'].toFixed(0))}&#176;С</span>
                   </> :
                   <>
-                    <span className="weather-next-day__temp_max">{new Convert(Number(item['max_temp'])).toFahrenheitFromCelsius()}&#176;F</span>
-                    <span className="weather-next-day__temp_min">{new Convert(Number(item['min_temp'])).toFahrenheitFromCelsius()}&#176;F</span>
+                    <span className="weather-next-day__temp_max">{new Converter(Number(item['max_temp'])).toFahrenheitFromCelsius()}&#176;F</span>
+                    <span className="weather-next-day__temp_min">{new Converter(Number(item['min_temp'])).toFahrenheitFromCelsius()}&#176;F</span>
                   </>
                   }
                 </div>

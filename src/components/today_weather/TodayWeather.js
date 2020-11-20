@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convertr from '../../lib/Convertr'
+import Converter from '../../lib/Converter'
 
 //styles
 import './TodayWeather.scss'
@@ -41,7 +41,7 @@ function TodayWeather (props) {
             <div
               className="today-weather__weather-temp">
             {
-              new Convertr(consolidatedWeather[0]['the_temp']).toFahrenheitFromCelsius()
+              new Converter(consolidatedWeather[0]['the_temp']).toFahrenheitFromCelsius()
             }
             <span>&#176;F</span>
             </div>
