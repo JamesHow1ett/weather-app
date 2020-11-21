@@ -29,7 +29,7 @@
         border: 1px solid transparent;
         border-radius: 1px;
       }
-      &:hover::before { 
+      &:hover::before {
         z-index: 9;
         animation-duration: 1s;
         animation-name: hover-animation;

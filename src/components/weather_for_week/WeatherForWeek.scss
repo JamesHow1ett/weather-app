@@ -15,8 +15,10 @@
       align-items: center;
       justify-content: center;
       margin-left: 12px;
+      transition: background-color .3s ease;
       &:hover {
         cursor: pointer;
+        background-color: #9593b9;
       }
       &:first-child {
         margin-left: 0;
@@ -32,6 +34,11 @@
         background-color: #E7E7EB;
         span{
           color: #110E3C;
+        }
+        &:hover {
+          span {
+            color: #9593b9;
+          }
         }
       }
     }
