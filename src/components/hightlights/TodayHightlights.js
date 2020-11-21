@@ -15,12 +15,12 @@ function TodayHightlights (props) {
   const webData = props.weatherData
   const defaultData = props.defaultData
   const isCelsium = props.isCelsium
-  const consolidatedWeather = webData['consolidated_weather'] || defaultData['consolidated_weather']
+  const consolidatedWeather = webData['consolidated_weather'] ?? defaultData['consolidated_weather']
 
   return (
     <div className="today-hightlights">
       <div className="today-hightlights__header">
-      <span>Today's Hightlights for { webData ? webData['title'] : '' }</span>
+      <span>Today's Hightlights for { webData['title'] ?? '' }</span>
       </div>
       <div className="today-hightlights__wrapper">
         <div className="today-hightlights__box">

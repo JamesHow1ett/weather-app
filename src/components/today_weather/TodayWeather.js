@@ -10,11 +10,10 @@ function TodayWeather (props) {
   const webData = props.weatherData
   const defaultData = props.defaultData
   const isCelsium = props.isCelsium
-  const consolidatedWeather = webData['consolidated_weather'] || defaultData['consolidated_weather']
+  const consolidatedWeather = webData['consolidated_weather'] ?? defaultData['consolidated_weather']
 
   return (
     <div className="today-weather">
-      {console.log(new TempretureConverter(34).fahrenheitToCelsius())}
       <div className="today-weather__btn-search-group">
         <div className="today-weather__btn-search" onClick={(() => props.handleIsSearchBar())}>
           <span>Seach for places</span>
@@ -65,7 +64,7 @@ function TodayWeather (props) {
               <img src="/static/img/icons/baseline_place_white_18dp.png" alt="city-icon" />
             </div>
             <div className="today-weather__city-name">
-              { webData ? webData['title'] : defaultData['title'] }
+              { webData['title'] ?? defaultData['title'] }
             </div>
           </div>
         </div>
