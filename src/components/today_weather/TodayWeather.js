@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Converter from '../../lib/Converter'
+import { TempretureConverter } from '../../lib/Converter'
 
 //styles
 import './TodayWeather.scss'
@@ -14,6 +14,7 @@ function TodayWeather (props) {
 
   return (
     <div className="today-weather">
+      {console.log(new TempretureConverter(34).fahrenheitToCelsius())}
       <div className="today-weather__btn-search-group">
         <div className="today-weather__btn-search" onClick={(() => props.handleIsSearchBar())}>
           <span>Seach for places</span>
@@ -41,7 +42,7 @@ function TodayWeather (props) {
             <div
               className="today-weather__weather-temp">
             {
-              new Converter(consolidatedWeather[0]['the_temp']).toFahrenheitFromCelsius()
+              new TempretureConverter(consolidatedWeather[0]['the_temp']).celsiusToFahrenheit()
             }
             <span>&#176;F</span>
             </div>
