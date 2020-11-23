@@ -48,18 +48,17 @@ function TodayHightlights (props) {
         </div>
       </div>
       <div className="today-hightlights__dev-sign">
-        <span>Oleksandr Skorokhod @
+        <span>Oleksandr Skorokhod @&nbsp;
           <a
             href="https://devchallenges.io/"
             target="_blank"
             rel="noopener noreferrer"
-          >&nbsp;DevChallenges.io
+          >DevChallenges.io
           </a>
         </span>
       </div>
     </div>
   )
-
 }
 
 export default TodayHightlights

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convertr from '../../lib/Convertr'
+import Converter from '../../lib/Converter'
 
 //styles
 import './TodayWeather.scss'
@@ -9,6 +9,8 @@ import './TodayWeather.scss'
 function TodayWeather (props) {
   const webData = props.weatherData
   const defaultData = props.defaultData
+  const isCelsium = props.isCelsium
+  const consolidatedWeather = webData['consolidated_weather'] || defaultData['consolidated_weather']
 
   return (
     <div className="today-weather">
@@ -23,38 +25,30 @@ function TodayWeather (props) {
       <div className="today-weather__current-weather">
         <div className="today-weather__weather-icon">
           <img
-            src={`/static/img/weather/png/${webData['consolidated_weather'] ?
-              webData['consolidated_weather'][0]['weather_state_abbr'] :
-              defaultData['consolidated_weather']['weather_state_abbr']}.png`}
+            src={`/static/img/weather/png/${consolidatedWeather[0]['weather_state_abbr']}.png`}
             alt="weather-icon"
             />
         </div>
         <div className="today-weather__weather-detail">
-          {!!props.isCelsium ?
-          <div
-            className="today-weather__weather-temp">
+          {isCelsium ?
+            <div
+              className="today-weather__weather-temp">
+              {
+                Number(consolidatedWeather[0]['the_temp']).toFixed(0)
+              }
+              <span>&#176;С</span>
+            </div> :
+            <div
+              className="today-weather__weather-temp">
             {
-              Number(webData['consolidated_weather'] ?
-              webData['consolidated_weather'][0]['the_temp'] :
-              defaultData['consolidated_weather']['the_temp']).toFixed(0)
+              new Converter(consolidatedWeather[0]['the_temp']).toFahrenheitFromCelsius()
             }
-            <span>&#176;С</span>
-          </div> :
-          <div
-            className="today-weather__weather-temp">
-          {
-            new Convertr().toFahrenheitFromCelsius(Number(webData['consolidated_weather'] ?
-            webData['consolidated_weather'][0]['the_temp'] :
-            defaultData['consolidated_weather']['the_temp']))
-          }
-          <span>&#176;F</span>
-        </div>
+            <span>&#176;F</span>
+            </div>
           }
           <div className="today-weather__weather-name">
             {
-              webData['consolidated_weather'] ?
-              webData['consolidated_weather'][0]['weather_state_name'] :
-              defaultData['consolidated_weather']['weather_state_name']
+              consolidatedWeather[0]['weather_state_name']
             }
           </div>
         </div>

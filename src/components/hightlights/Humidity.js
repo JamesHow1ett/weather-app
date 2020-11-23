@@ -12,12 +12,21 @@ function Humidity(props) {
         <span>{ humidity }%</span>
       </div>
       <div className="today-hightlights__progress-bar">
+        <div 
+          className="today-hightlights__progress-bar-percentage today-hightlights__progress-bar-percentage_zero"
+        />
+        <div
+          className="today-hightlights__progress-bar-percentage today-hightlights__progress-bar-percentage_half"
+        />
         <progress
           className="progress-bar"
           max="100"
           value={humidity}
         >
         </progress>
+        <div
+          className="today-hightlights__progress-bar-percentage today-hightlights__progress-bar-percentage_full"
+        />
       </div>
     </div>
   )

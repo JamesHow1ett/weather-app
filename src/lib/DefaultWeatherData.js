@@ -1,4 +1,4 @@
-
+//use this object when waiting data from api
 const defaultWeatherData = () => ({
   consolidated_weather: [{
     air_pressure: 0,

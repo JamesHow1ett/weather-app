@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
-
   &__header {
     display: flex;
     align-items: center;
@@ -14,7 +13,6 @@
       line-height: 28px;
     }
   }
-
   &__wrapper {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -24,7 +22,6 @@
     margin-top: 32px;
     width: 100%;
   }
-
   &__box {
     display: flex;
     flex-direction: column;
@@ -37,11 +34,9 @@
       height: 160px;
     }
   }
-
   &__item {
     color: #E7E7EB;
   }
-
   &__info {
     font-size: 4rem;
     font-weight: bold;
@@ -51,19 +46,16 @@
       font-size: 2rem;
     }
   }
-
   &__label {
     font-size: 1rem;
     font-weight: 500;
     line-height: 19px;
     text-align: center;
   }
-
   &__wind-direction {
     display: flex;
     align-items: center;
     justify-content: center;
-
     div {
       display: flex;
       align-items: center;
@@ -127,13 +119,14 @@
       }
     }
   }
-
   &__progress-bar {
+    position: relative;
     progress[value] {
       appearance: none;
       height: 8px;
       width: 185px;
       margin-top: 22px;
+      border-radius: 10px;
     }
     progress[value]::-webkit-progress-bar {
       background-color: #E7E7EB;
@@ -153,8 +146,67 @@
       background-size: 35px 20px, 100% 100%, 100% 100%;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25)
     }
+    .today-hightlights__progress-bar-percentage {
+      &_zero {
+        &::before {
+          position: absolute;
+          content: '0';
+          top: 0;
+          left: 0;
+          height: 14px;
+          width: 8px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translateY(35%);
+        }
+      }
+      &_half {
+        &::before {
+          position: absolute;
+          content: '50';
+          top: 0;
+          left: 0;
+          height: 14px;
+          width: 15px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translate(550%, 35%);
+        }
+      }
+      &_full {
+        &::before {
+          position: absolute;
+          content: '100';
+          top: 0;
+          right: 0;
+          height: 14px;
+          width: 21px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translateY(35%);
+        }
+        &::after {
+          position: absolute;
+          content: '%';
+          top: 0;
+          right: 0;
+          height: 14px;
+          width: 10px;
+          font-size: 12px;
+          font-weight: bold;
+          line-height: 14px;
+          color: #A09FB1;
+          transform: translateY(235%);
+        }
+      }
+    }
   }
-
   &__dev-sign {
     margin-top: 90px;
     a {
@@ -176,6 +228,3 @@
     }
   }
 }
-
-
-//color #616375

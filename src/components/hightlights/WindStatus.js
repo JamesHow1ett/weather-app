@@ -1,5 +1,5 @@
 import React from 'react'
-import Convertr from '../../lib/Convertr'
+import Converter from '../../lib/Converter'
 import PropTypes from 'prop-types'
 
 function WindStatus(props) {
@@ -16,7 +16,7 @@ function WindStatus(props) {
       {isCelsium ?
         <span>
         {
-          new Convertr().toKilometrsFromMiles(windSpeed)
+          new Converter(windSpeed).toKilometrsFromMiles().toFixed(1)
         }
           <span className="today-hightlights__info_small">&nbsp;kph</span>
         </span> :

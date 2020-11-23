@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Convertr from '../../lib/Convertr'
+import Converter from '../../lib/Converter'
 
 function Visibility(props) {
   const visibility = props.visibility
@@ -12,10 +12,10 @@ function Visibility(props) {
         <span>Visibility</span>
       </div>
       <div className="today-hightlights__info">
-      {!!isCelsium ?
+      {isCelsium ?
         <span>
         {
-          new Convertr().toKilometrsFromMiles(visibility)
+          new Converter(visibility).toKilometrsFromMiles().toFixed(1)
         }
           <span className="today-hightlights__info_small">&nbsp;km</span>
         </span> :
