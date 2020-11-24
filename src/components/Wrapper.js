@@ -106,12 +106,12 @@ class Wrapper extends React.Component {
         <div className="component component-today-weather">
         {
           this.state.isSearchBar &&
-            <SearchBar
-              locationResults={this.state.locationResults}
-              handleSearchBar={this.handleSearchBar}
-              handleLocationId={this.handleLocationId}
-              handleIsSearchBar={this.handleIsSearchBar}
-            />
+          <SearchBar
+            locationResults={this.state.locationResults}
+            handleSearchBar={this.handleSearchBar}
+            handleLocationId={this.handleLocationId}
+            handleIsSearchBar={this.handleIsSearchBar}
+          />
         }
         {
           !this.state.isSearchBar &&
