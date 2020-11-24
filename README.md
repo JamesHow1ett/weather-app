@@ -40,9 +40,9 @@
 ![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/fullscreenApp.JPG)
 ![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/fullscreenAppF.JPG)
 ![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/fullscreenAppSearch.JPG)
-![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobilescreenApp.JPG)
-![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobilescreenAppSecond.JPG)
-![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobilescreenAppThird.JPG)
+![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobileScreenApp.JPG)
+![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobileScreenAppSecond.JPG)
+![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobileScreenAppThird.JPG)
 
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
