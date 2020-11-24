@@ -44,12 +44,19 @@
 ![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobileScreenAppSecond.JPG)
 ![screenshot](https://raw.githubusercontent.com/JamesHow1ett/weather-app/main/.github/screenshots/mobileScreenAppThird.JPG)
 
-Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
+Hello, my name is Oleksandr Skorokhod. I'm a junior front-end developer. This is my second React project ever. So.. when I had coding this project I'm using technologies like:
 
-- Where can I see your demo?
-- What was your experience?
-- What have you learned/improved?
-- Your wisdom? :)
+ -  React to display the received data.
+ -  Sass to write styles.
+ -  For get data from API I'd using fetch.
+
+My experience after all this:
+
+ - Better understanding React components lifecycle.
+ - How to deploy to firebase (yes I known it is simple, but it is first time for me).
+
+That's all folks!
+
 
 ### Built With
 
