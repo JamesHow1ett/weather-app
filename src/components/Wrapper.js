@@ -1,120 +1,120 @@
-import React from 'react'
-import dataFromApi from '../lib/Api'
-import defaultWeatherData from '../lib/DefaultWeatherData'
-import { trackPromise } from 'react-promise-tracker'
+import React from 'react';
+import { trackPromise } from 'react-promise-tracker';
+import dataFromApi from '../lib/api';
+import defaultWeatherData from '../lib/utils/defaultWeatherData';
 
-//components
-import SearchBar from './search_bar/SearchBar'
-import TodayHightlights from './hightlights/TodayHightlights'
-import TodayWeather from './today_weather/TodayWeather'
-import WeatherForWeek from './weather_for_week/WeatherForWeek'
-import LoadingComponent from './LoadingComponent'
+// components
+import SearchBar from './search_bar/SearchBar';
+import TodayHightlights from './hightlights/TodayHightlights';
+import TodayWeather from './today_weather/TodayWeather';
+import WeatherForWeek from './weather_for_week/WeatherForWeek';
+import LoadingComponent from './LoadingComponent';
 
-//styles
-import './Wrapper.scss'
+// styles
+import './Wrapper.scss';
 
-//initialize default weather data object
-const defaultData = defaultWeatherData()
-
+// initialize default weather data object
+const defaultData = defaultWeatherData();
 
 class Wrapper extends React.Component {
   constructor(props) {
-    super(props)
-    this.getGeolocation = this.getGeolocation.bind(this)
-    this.getSearchResultsInput = this.getSearchResultsInput.bind(this)
-    this.getGeolocationData = this.getGeolocationData.bind(this)
-    this.handleGetLocation = this.handleGetLocation.bind(this)
-    this.handleSearchBar = this.handleSearchBar.bind(this)
-    this.handleLocationId = this.handleLocationId.bind(this)
-    this.handleIsSearchBar = this.handleIsSearchBar.bind(this)
-    this.handleIsCelsium = this.handleIsCelsium.bind(this)
+    super(props);
+    this.getGeolocation = this.getGeolocation.bind(this);
+    this.getSearchResultsInput = this.getSearchResultsInput.bind(this);
+    this.getGeolocationData = this.getGeolocationData.bind(this);
+    this.handleGetLocation = this.handleGetLocation.bind(this);
+    this.handleSearchBar = this.handleSearchBar.bind(this);
+    this.handleLocationId = this.handleLocationId.bind(this);
+    this.handleIsSearchBar = this.handleIsSearchBar.bind(this);
+    this.handleIsCelsium = this.handleIsCelsium.bind(this);
     this.state = {
       weatherData: {},
       locationResults: [],
       locationNum: 44418,
       isSearchBar: false,
       isCelsium: true,
-    }
+    };
   }
 
   componentDidMount() {
-    this.getGeolocation(this.getGeolocationData)
+    this.getGeolocation(this.getGeolocationData);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.locationNum !== prevState.locationNum) {
       trackPromise(dataFromApi(`/api/location/${this.state.locationNum}`)
-        .then(res => this.setState({weatherData: res}))
-        .catch(err => Error(err)))
+        .then((res) => this.setState({ weatherData: res }))
+        .catch((err) => Error(err)));
     }
   }
 
-  async getSearchResultsInput (inputValue) {
+  async getSearchResultsInput(inputValue) {
     return trackPromise(dataFromApi(`/api/location/search/?query=${inputValue}`)
-            .then(res => this.setState({locationResults: res}))
-            .catch(err => Error(err)))
+      .then((res) => this.setState({ locationResults: res }))
+      .catch((err) => Error(err)));
   }
 
-  async getGeolocationData ({latitude, longitude}) {
+  async getGeolocationData({ latitude, longitude }) {
     return trackPromise(dataFromApi(`/api/location/search/?lattlong=${latitude},${longitude}`)
-            .then(res => {
-              return (this.setState({locationNum: res[0]['woeid']}), localStorage.setItem(res[0]['title'], res[0]['woeid']))
-            })
-            .catch(err => Error(err)))
+      .then((res) => (this.setState({ locationNum: res[0].woeid }), localStorage.setItem(res[0].title, res[0].woeid)))
+      .catch((err) => Error(err)));
   }
 
-  getGeolocation (callback) {
-    function success (position) {
+  getGeolocation(callback) {
+    function success(position) {
       const longitude = position.coords.longitude || 1;
       const latitude = position.coords.latitude || 1;
       const coordsObj = {
         latitude: +latitude.toFixed(3),
         longitude: +longitude.toFixed(3),
-      }
-      return callback(coordsObj)
+      };
+      return callback(coordsObj);
     }
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success)
+      navigator.geolocation.getCurrentPosition(success);
     }
   }
 
-  handleGetLocation () {
-    return this.getGeolocation(this.getGeolocationData)
+  handleGetLocation() {
+    return this.getGeolocation(this.getGeolocationData);
   }
 
-  handleSearchBar (inputValue = 'lozova') {
-    let trimStr = inputValue.replace(/"|'/, '').toLowerCase()
-    return this.getSearchResultsInput(trimStr)
+  handleSearchBar(inputValue = 'lozova') {
+    const trimStr = inputValue.replace(/"|'/, '').toLowerCase();
+    return this.getSearchResultsInput(trimStr);
   }
 
-  handleLocationId (locationId = '01') {
-    let convertToNum = +locationId
-    return this.setState({locationNum: convertToNum})
+  handleLocationId(locationId = '01') {
+    const convertToNum = +locationId;
+    return this.setState({ locationNum: convertToNum });
   }
 
-  handleIsSearchBar () {
-    return this.setState({isSearchBar: !this.state.isSearchBar})
+  handleIsSearchBar() {
+    return this.setState({ isSearchBar: !this.state.isSearchBar });
   }
 
-  handleIsCelsium () {
-    return this.setState({isCelsium: !this.state.isCelsium})
+  handleIsCelsium() {
+    return this.setState({ isCelsium: !this.state.isCelsium });
   }
-  
-  render () {
+
+  render() {
     return (
       <div className="wrapper">
         <div className="component component-today-weather">
-        {
-          this.state.isSearchBar &&
+          {
+          this.state.isSearchBar
+          && (
           <SearchBar
             locationResults={this.state.locationResults}
             handleSearchBar={this.handleSearchBar}
             handleLocationId={this.handleLocationId}
             handleIsSearchBar={this.handleIsSearchBar}
           />
+          )
         }
-        {
-          !this.state.isSearchBar &&
+          {
+          !this.state.isSearchBar
+          && (
           <TodayWeather
             weatherData={this.state.weatherData}
             defaultData={defaultData}
@@ -123,6 +123,7 @@ class Wrapper extends React.Component {
             handleGetLocation={this.handleGetLocation}
             isCelsium={this.state.isCelsium}
           />
+          )
         }
         </div>
         <div className="component-wrapper">
@@ -144,8 +145,8 @@ class Wrapper extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default Wrapper
+export default Wrapper;

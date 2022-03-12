@@ -1,5 +1,4 @@
-//use this object when waiting data from api
-const defaultWeatherData = () => ({
+export default () => ({
   consolidated_weather: [{
     air_pressure: 0,
     humidity: 0,
@@ -16,8 +15,6 @@ const defaultWeatherData = () => ({
   dateOptions: {
     day: 'numeric',
     month: 'short',
-    weekday: 'short'
-  }
+    weekday: 'short',
+  },
 });
-
-export default defaultWeatherData;
