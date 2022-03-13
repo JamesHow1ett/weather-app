@@ -1,99 +1,97 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Converter from '../../lib/utils/Converter';
+import createDefaultData from '../../lib/utils/defaultWeatherData';
+import { formattedDate } from '../../lib/utils/utils';
 
 // styles
 import './WeatherForWeek.scss';
 
+const defaultData = createDefaultData();
+
 function WeatherForWeek(props) {
-  const celsius = props.isCelsium;
-  const webData = props.weatherData;
-  const { defaultData } = props;
+  const {
+    isCelsium,
+    weatherData,
+    toggleCelsium,
+  } = props;
+
+  const hasWeatherData = weatherData.consolidated_weather
+    && Boolean(weatherData.consolidated_weather.length);
+  const [defaultWeatherData] = defaultData.consolidated_weather;
+
+  const renderCardTempreture = (item, isMetrical) => {
+    if (isMetrical) {
+      return (
+        <>
+          <span className="weather-next-day__temp_max">
+            { Number(item.max_temp).toFixed(0) }
+            &#176;С
+          </span>
+          <span className="weather-next-day__temp_min">
+            { Number(item.min_temp).toFixed(0) }
+            &#176;С
+          </span>
+        </>
+      );
+    }
+
+    return (
+      <>
+        <span className="weather-next-day__temp_max">
+          { new Converter(item.max_temp).toFahrenheitFromCelsius() }
+          &#176;F
+        </span>
+        <span className="weather-next-day__temp_min">
+          { new Converter(item.min_temp).toFahrenheitFromCelsius() }
+          &#176;F
+        </span>
+      </>
+    );
+  };
+  const renderDayCard = (item, index = 0) => {
+    const key = `weather-next-day__item-${index}`;
+
+    return (
+      <div className="weather-next-day__item" key={key}>
+        <div className="weather-next-day__day-name">
+          <span>
+            { formattedDate(item.applicable_date) }
+          </span>
+        </div>
+        <div className="weather-next-day__weather-icon">
+          <img src={`/static/img/weather/png/${item.weather_state_abbr}.png`} alt="weather icon" />
+        </div>
+        <div className="weather-next-day__temp">
+          { renderCardTempreture(item, isCelsium) }
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="week-weather">
       <div className="convert-tempreture-btn-group">
-        <div
-          className={`convert-tempreture-btn-group__btn ${celsius ? 'active' : ''}`}
-          onClick={(() => props.handleIsCelsium())}
+        <button
+          type="button"
+          className={`convert-tempreture-btn-group__btn ${isCelsium ? 'active' : ''}`}
+          onClick={() => toggleCelsium()}
         >
           <span>&#176;С</span>
-        </div>
-        <div
-          className={`convert-tempreture-btn-group__btn ${celsius ? '' : 'active'}`}
-          onClick={(() => props.handleIsCelsium())}
+        </button>
+        <button
+          type="button"
+          className={`convert-tempreture-btn-group__btn ${isCelsium ? '' : 'active'}`}
+          onClick={() => toggleCelsium()}
         >
           <span>&#176;F</span>
-        </div>
+        </button>
       </div>
       <div className="weather-next-day">
         {
-          webData.consolidated_weather
-            ? webData.consolidated_weather.map((item, index) => (
-              index > 0 ? (
-                <div className="weather-next-day__item" key={index}>
-                  <div className="weather-next-day__day-name">
-                    <span>
-                      {
-                    index === 1
-                      ? 'Tomorrow'
-                      : new Date(item.applicable_date).toLocaleDateString('en-GB', defaultData.dateOptions)
-                  }
-                    </span>
-                  </div>
-                  <div className="weather-next-day__weather-icon">
-                    <img src={`/static/img/weather/png/${item.weather_state_abbr}.png`} alt="weather icon" />
-                  </div>
-                  <div className="weather-next-day__temp">
-                    {celsius
-                      ? (
-                        <>
-                          <span className="weather-next-day__temp_max">
-                            {Number(item.max_temp.toFixed(0))}
-                            &#176;С
-                          </span>
-                          <span className="weather-next-day__temp_min">
-                            {Number(item.min_temp.toFixed(0))}
-                            &#176;С
-                          </span>
-                        </>
-                      )
-                      : (
-                        <>
-                          <span className="weather-next-day__temp_max">
-                            {new Converter(Number(item.max_temp)).toFahrenheitFromCelsius()}
-                            &#176;F
-                          </span>
-                          <span className="weather-next-day__temp_min">
-                            {new Converter(Number(item.min_temp)).toFahrenheitFromCelsius()}
-                            &#176;F
-                          </span>
-                        </>
-                      )}
-                  </div>
-                </div>
-              ) : ''
-            ))
-            : (
-              <div className="weather-next-day__item">
-                <div className="weather-next-day__day-name">
-                  <span>{ new Date().toLocaleDateString('en-GB', defaultData.dateOptions) }</span>
-                </div>
-                <div className="weather-next-day__weather-icon">
-                  <img src={`/static/img/weather/png/${defaultData.consolidated_weather[0].weather_state_abbr}.png`} alt="weather icon" />
-                </div>
-                <div className="weather-next-day__temp">
-                  <span className="weather-next-day__temp_max">
-                    {defaultData.consolidated_weather[0].max_temp}
-                    &#176;С
-                  </span>
-                  <span className="weather-next-day__temp_min">
-                    {defaultData.consolidated_weather[0].min_temp}
-                    &#176;С
-                  </span>
-                </div>
-              </div>
-            )
+          hasWeatherData
+            ? weatherData.consolidated_weather.map((item, index) => (renderDayCard(item, index)))
+            : renderDayCard(defaultWeatherData)
         }
       </div>
     </div>
@@ -104,6 +102,11 @@ export default WeatherForWeek;
 
 WeatherForWeek.propTypes = {
   isCelsium: PropTypes.bool,
-  weatherData: PropTypes.object,
-  defaultData: PropTypes.object.isRequired,
+  weatherData: PropTypes.shape(defaultData),
+  toggleCelsium: PropTypes.func.isRequired,
+};
+
+WeatherForWeek.defaultProps = {
+  isCelsium: false,
+  weatherData: defaultData,
 };

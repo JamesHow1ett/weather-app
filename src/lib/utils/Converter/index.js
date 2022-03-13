@@ -7,18 +7,18 @@ const {
 
 class Converter {
   constructor(value) {
-    this.value = value;
+    this.value = Number(value);
   }
 
-  static toMilesFromKilometrs() {
+  toMilesFromKilometrs() {
     return this.value * milesMultiple;
   }
 
-  static toKilometrsFromMiles() {
+  toKilometrsFromMiles() {
     return this.value * kilometersMultiple;
   }
 
-  static toFahrenheitFromCelsius() {
+  toFahrenheitFromCelsius() {
     return (this.value * 9) / 5 + 32;
   }
 }

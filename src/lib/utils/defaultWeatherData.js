@@ -12,9 +12,4 @@ export default () => ({
     wind_direction_compass: 'N',
   }],
   title: 'Lozova',
-  dateOptions: {
-    day: 'numeric',
-    month: 'short',
-    weekday: 'short',
-  },
 });

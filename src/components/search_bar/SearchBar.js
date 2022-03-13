@@ -6,7 +6,7 @@ import './SearchBar.scss';
 
 function SearchBar(props) {
   const {
-    handleIsSearchBar,
+    toggleSearchBar,
     handleSearchBar,
     handleLocationId,
     locationResults,
@@ -15,6 +15,34 @@ function SearchBar(props) {
 
   const handleChange = (event) => setInputValue(event.target.value);
 
+  const hasResults = (results) => Boolean(results.length);
+
+  const renderSearchResult = (item, index) => {
+    const key = `${item.woeid}_${index}`;
+    const tabIndex = 0 - index;
+
+    return (
+      <div
+        className="search-bar__cities"
+        key={key}
+        onClick={() => () => {
+          handleLocationId(item.woeid);
+          toggleSearchBar();
+        }}
+        onKeyDown={() => {}}
+        role="button"
+        tabIndex={tabIndex}
+      >
+        <span>{item.title}</span>
+        <img
+          src="/static/img/icons/chevron_right-white-18dp.svg"
+          alt="chevron-right"
+          className="chevron-right"
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="search-bar">
       <div className="search-bar__btn-close-group">
@@ -22,7 +50,7 @@ function SearchBar(props) {
           className="search-bar__btn-close"
           tabIndex={0}
           role="button"
-          onClick={(() => handleIsSearchBar())}
+          onClick={() => toggleSearchBar()}
           // TODO: implement logic
           onKeyUp={() => {}}
         >
@@ -46,32 +74,17 @@ function SearchBar(props) {
         </button>
       </div>
       <div className="search-bar__search-results">
-        {locationResults
-          ? locationResults.map((item, index) => (
-            <div
-              className="search-bar__cities"
-              key={`${item.woeid}_${index + 0}`}
-              onClick={() => () => {
-                handleLocationId(item.woeid);
-                handleIsSearchBar();
-              }}
-              onKeyDown={() => {}}
-              role="button"
-              tabIndex={index + 1}
-            >
-              <span>{item.title}</span>
-              <img
-                src="/static/img/icons/chevron_right-white-18dp.svg"
-                alt="chevron-right"
-                className="chevron-right"
-              />
-            </div>
-          ))
-          : (
-            <div className="search-bar__cities">
-              <span>loading...</span>
-            </div>
-          )}
+        {
+          hasResults(locationResults)
+          && locationResults.map((item, index) => renderSearchResult(item, index))
+        }
+        {
+          !hasResults(locationResults) && (
+          <div className="search-bar__cities">
+            <span>loading...</span>
+          </div>
+          )
+        }
       </div>
     </div>
   );
@@ -84,14 +97,11 @@ SearchBar.propTypes = {
     woeid: PropTypes.string,
     title: PropTypes.string,
   })),
-  handleIsSearchBar: PropTypes.func.isRequired,
+  toggleSearchBar: PropTypes.func.isRequired,
   handleSearchBar: PropTypes.func.isRequired,
   handleLocationId: PropTypes.func.isRequired,
 };
 
 SearchBar.defaultProps = {
-  locationResults: [{
-    woeid: 'woeid',
-    title: 'title',
-  }],
+  locationResults: [],
 };

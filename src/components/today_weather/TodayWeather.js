@@ -1,70 +1,85 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Converter from '../../lib/utils/Converter';
+import createDefaultData from '../../lib/utils/defaultWeatherData';
+import { DATE_FORMAT } from '../../lib/utils/constants';
 
 // styles
 import './TodayWeather.scss';
 
 function TodayWeather(props) {
+  const defaultData = createDefaultData();
   const {
-    defaultData,
     weatherData,
     isCelsium,
-    handleIsSearchBar,
+    toggleSearchBar,
     handleGetLocation,
   } = props;
-  const consolidatedWeather = weatherData.consolidated_weather || defaultData.consolidated_weather;
+  const [weather] = weatherData.consolidated_weather
+    || defaultData.consolidated_weather;
+
+  const renderWeatherDetails = (tempreture, isMetrical) => {
+    if (isMetrical) {
+      return (
+        <div
+          className="today-weather__weather-temp"
+        >
+          { Number(tempreture).toFixed(0) }
+          <span>&#176;С</span>
+        </div>
+      );
+    }
+
+    return (
+      <div
+        className="today-weather__weather-temp"
+      >
+        { new Converter(weather.the_temp).toFahrenheitFromCelsius() }
+        <span>&#176;F</span>
+      </div>
+    );
+  };
 
   return (
     <div className="today-weather">
       <div className="today-weather__btn-search-group">
-        <div className="today-weather__btn-search" onClick={(() => handleIsSearchBar())}>
+        <div
+          className="today-weather__btn-search"
+          role="button"
+          tabIndex={-1}
+          onClick={() => toggleSearchBar()}
+          onKeyDown={() => {}}
+        >
           <span>Seach for places</span>
         </div>
-        <div className="today-weather__btn-location" onClick={(() => handleGetLocation())}>
+        <div
+          className="today-weather__btn-location"
+          role="button"
+          tabIndex={0}
+          onClick={() => handleGetLocation()}
+          onKeyDown={() => {}}
+        >
           <img src="/static/img/icons/baseline_gps_fixed_white_18dp.png" alt="gps logo" />
         </div>
       </div>
       <div className="today-weather__current-weather">
         <div className="today-weather__weather-icon">
           <img
-            src={`/static/img/weather/png/${consolidatedWeather[0].weather_state_abbr}.png`}
+            src={`/static/img/weather/png/${weather.weather_state_abbr}.png`}
             alt="weather-icon"
           />
         </div>
         <div className="today-weather__weather-detail">
-          {isCelsium
-            ? (
-              <div
-                className="today-weather__weather-temp"
-              >
-                {
-                Number(consolidatedWeather[0].the_temp).toFixed(0)
-              }
-                <span>&#176;С</span>
-              </div>
-            )
-            : (
-              <div
-                className="today-weather__weather-temp"
-              >
-                {
-              Converter(consolidatedWeather[0].the_temp).toFahrenheitFromCelsius()
-            }
-                <span>&#176;F</span>
-              </div>
-            )}
+          { renderWeatherDetails(weather.the_temp, isCelsium) }
           <div className="today-weather__weather-name">
-            {
-              consolidatedWeather[0].weather_state_name
-            }
+            { weather.weather_state_name }
           </div>
         </div>
         <div className="today-weather__weather-location">
           <div className="today-weather__date-group">
             <div className="today-weather__today">Today</div>
             <div className="today-weather__full-date">
-              { new Date().toLocaleDateString('en-GB', defaultData.dateOptions) }
+              { new Date().toLocaleDateString('en-GB', DATE_FORMAT) }
             </div>
           </div>
           <div className="today-weather__city">
@@ -84,6 +99,13 @@ function TodayWeather(props) {
 export default TodayWeather;
 
 TodayWeather.propTypes = {
-  weatherData: PropTypes.object,
-  defaultData: PropTypes.object.isRequired,
+  weatherData: PropTypes.shape(createDefaultData()),
+  isCelsium: PropTypes.bool,
+  toggleSearchBar: PropTypes.func.isRequired,
+  handleGetLocation: PropTypes.func.isRequired,
+};
+
+TodayWeather.defaultProps = {
+  weatherData: createDefaultData(),
+  isCelsium: false,
 };

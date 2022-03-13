@@ -1,19 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-//components
-import Wrapper from './components/Wrapper'
+// components
+import Wrapper from './components/Wrapper';
 
-//styles
-import './App.css'
+// styles
+import './App.css';
 
-
-function App (props) {
+function App() {
   return (
     <div className="App">
       <Wrapper />
     </div>
   );
-  
 }
 
-export default App
+export default App;
