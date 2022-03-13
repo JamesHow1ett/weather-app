@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function AirPressure(props) {
-  const airPressure = props.airPressure
+  const { airPressure } = props;
 
   return (
     <div className="today-hightlights__item">
@@ -11,18 +11,20 @@ function AirPressure(props) {
       </div>
       <div className="today-hightlights__info">
         <span>
-        {
-          Number(airPressure).toFixed(0)
-        }
+          { Number(airPressure).toFixed(0) }
           <span className="today-hightlights__info_small">&nbsp;mb</span>
         </span>
       </div>
     </div>
-  )
+  );
 }
 
-export default AirPressure
+export default AirPressure;
 
 AirPressure.propTypes = {
-  airPressure: PropTypes.number.isRequired
-}
+  airPressure: PropTypes.number,
+};
+
+AirPressure.defaultProps = {
+  airPressure: 0,
+};

@@ -1,11 +1,33 @@
-import React from 'react'
-import Converter from '../../lib/Converter'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Converter from '../../lib/utils/Converter';
 
 function WindStatus(props) {
-  const isCelsium = props.isCelsium
-  const windSpeed = props.windSpeed
-  const windDirectionCompass = props.windDirectionCompass
+  const {
+    isCelsium,
+    windSpeed,
+    windDirectionCompass,
+  } = props;
+
+  const windDirectionImageClass = `today-hightlights__wind-direction-img_${windDirectionCompass}`;
+
+  const renderWindSpeed = (value) => {
+    if (isCelsium) {
+      return (
+        <span>
+          { new Converter(value).toKilometrsFromMiles().toFixed(1) }
+          <span className="today-hightlights__info_small">&nbsp;kph</span>
+        </span>
+      );
+    }
+
+    return (
+      <span>
+        { Number(value).toFixed(1) }
+        <span className="today-hightlights__info_small">&nbsp;mph</span>
+      </span>
+    );
+  };
 
   return (
     <div className="today-hightlights__item">
@@ -13,43 +35,28 @@ function WindStatus(props) {
         <span>Wind status</span>
       </div>
       <div className="today-hightlights__info">
-      {isCelsium ?
-        <span>
-        {
-          new Converter(windSpeed).toKilometrsFromMiles().toFixed(1)
-        }
-          <span className="today-hightlights__info_small">&nbsp;kph</span>
-        </span> :
-        <span>
-        {
-          Number(windSpeed).toFixed(1)
-        }
-          <span className="today-hightlights__info_small">&nbsp;mph</span>
-        </span>
-      }
+        { renderWindSpeed(windSpeed) }
       </div>
       <div className="today-hightlights__wind-direction">
         <div>
           <img
-            src={`/static/img/icons/navigation-white-18dp.svg`}
+            src="/static/img/icons/navigation-white-18dp.svg"
             alt="wind_direction_compass"
-            className={`today-hightlights__wind-direction today-hightlights__wind-direction-img_${windDirectionCompass}`}
+            className={`today-hightlights__wind-direction ${windDirectionImageClass}`}
           />
         </div>
         <span>
-        {
-          windDirectionCompass
-        }
+          { windDirectionCompass }
         </span>
       </div>
     </div>
-  )
+  );
 }
 
-export default WindStatus
+export default WindStatus;
 
 WindStatus.propTypes = {
   isCelsium: PropTypes.bool.isRequired,
   windSpeed: PropTypes.number.isRequired,
-  windDirectionCompass: PropTypes.string.isRequired
-}
+  windDirectionCompass: PropTypes.string.isRequired,
+};

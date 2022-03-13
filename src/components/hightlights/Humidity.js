@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function Humidity(props) {
-  const humidity = props.humidity
+  const { humidity } = props;
 
   return (
     <div className="today-hightlights__item">
@@ -9,10 +10,13 @@ function Humidity(props) {
         <span>Humidity</span>
       </div>
       <div className="today-hightlights__info">
-        <span>{ humidity }%</span>
+        <span>
+          { humidity }
+          %
+        </span>
       </div>
       <div className="today-hightlights__progress-bar">
-        <div 
+        <div
           className="today-hightlights__progress-bar-percentage today-hightlights__progress-bar-percentage_zero"
         />
         <div
@@ -22,14 +26,21 @@ function Humidity(props) {
           className="progress-bar"
           max="100"
           value={humidity}
-        >
-        </progress>
+        />
         <div
           className="today-hightlights__progress-bar-percentage today-hightlights__progress-bar-percentage_full"
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default Humidity
+export default Humidity;
+
+Humidity.propTypes = {
+  humidity: PropTypes.number,
+};
+
+Humidity.defaultProps = {
+  humidity: 0,
+};
